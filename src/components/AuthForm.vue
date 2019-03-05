@@ -54,6 +54,12 @@
 </template>
 <script>
     import { required, email, minLength, sameAs } from 'vuelidate/lib/validators'
+    import axios from 'axios'
+
+    axios.defaults.headers.common['Accept'] = 'application/json';
+    axios.defaults.headers.common['Content-Type'] = 'application/json';
+    axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*';
+
     export default {
         data () {
             return {
@@ -64,8 +70,16 @@
         },
         methods: {
             onSubmit () {
-                console.log('Email', this.email)
-                console.log('Password', this.password)
+                const login = {
+                    email : this.email,
+                    password : this.password
+                }
+
+                axios.post('http://localhost:9999/login', login)
+                    .then(response => console.log(response.data))
+                    .catch(error => {
+                       console.log(error.response)
+                    });
             }
         },
         validations: {

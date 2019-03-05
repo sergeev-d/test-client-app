@@ -1,14 +1,14 @@
 import Vue from 'vue'
 import Vuelidate from 'vuelidate'
-import VueRouter from 'vue-router'
+import router from './router'
 import App from './App.vue'
-import router from './routes'
 
+Vue.config.productionTip = false;
 Vue.use(Vuelidate)
-Vue.use(VueRouter)
 
 new Vue({
+  router,
   render: h => h(App),
-  router
+
 }).$mount('#app')
 
