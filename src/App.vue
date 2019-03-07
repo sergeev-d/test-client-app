@@ -1,17 +1,18 @@
 <template>
   <div id="app">
-    <Header/>
-    <Footer/>
+      <app-header></app-header>
+      <app-footer></app-footer>
   </div>
 </template>
 <script>
-  import Header from "@/components/TheHeader";
-  import Footer from "@/components/TheFooter";
+  import AppHeader from "@/components/TheHeader";
+  import AppFooter from "@/components/TheFooter";
 
   export default {
     components: {
-      Header,
-      Footer
+        AppHeader: AppHeader,
+        AppFooter: AppFooter
+
     }
   }
 </script>

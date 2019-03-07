@@ -10,7 +10,7 @@
         data () {
             return {
                 imageLogo: '@./assets/about_project.png',
-                topicName: 'О проекте'
+                topicName: 'Оценки'
             }
         },
         components: {
