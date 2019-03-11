@@ -1,17 +1,13 @@
 <template>
     <div class="topic-container">
-        <img :src=this.imgSrc>
-        <h3 align="center">{{ this.topicName }}</h3>
+        <img src="../assets/about_project.png">
+        <h3>{{ this.topicName }}</h3>
     </div>
 </template>
 <script>
 export default {
         name: "TopicImage",
         props: {
-            imgSrc: {
-                type: String,
-                required: true
-            },
             topicName: {
                 type: String,
                 required: true
@@ -21,10 +17,8 @@ export default {
 </script>
 <style scoped>
     .topic-container {
-        width: 1078px;
-        height: 90px;
-        padding: 8px;
-        background: aqua;
-
+        width: 100%;
+        height: 250px;
+        border: 1px black solid;
     }
 </style>

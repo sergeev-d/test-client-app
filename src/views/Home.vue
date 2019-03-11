@@ -1,20 +1,23 @@
 <template>
-    <topic-image
-            :imgSrc=this.imageLogo
-            :topicName=this.topicName
-    ></topic-image>
+    <div>
+        <topic-image
+                :topicName=this.topicName
+        ></topic-image>
+        <main-home></main-home>
+    </div>
 </template>
 <script>
     import TopicImage from "@/components/TopicImage"
+    import MainHome from "@/components/MainHome"
     export default {
         data () {
             return {
-                imageLogo: '@./assets/about_project.png',
                 topicName: 'О проекте'
             }
         },
         components: {
-            TopicImage
+            TopicImage,
+            MainHome
         }
     };
 </script>

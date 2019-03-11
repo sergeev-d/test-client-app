@@ -1,23 +1,25 @@
 <template>
-    <topic-image
-            :imgSrc=this.imageLogo
-            :topicName=this.topicName
-    ></topic-image>
+    <div class="container">
+        <topic-image
+                :topicName=this.topicName
+        ></topic-image>
+        <assessment-list :itemsPerPage="5"/>
+    </div>
 </template>
 <script>
     import TopicImage from "@/components/TopicImage"
+    import AssessmentList from "@/components/AssessmentList"
     export default {
         data () {
             return {
-                imageLogo: '@./assets/about_project.png',
                 topicName: 'Оценки'
             }
         },
         components: {
-            TopicImage
+            TopicImage,
+            AssessmentList
         }
     };
 </script>
 <style scoped>
-
 </style>

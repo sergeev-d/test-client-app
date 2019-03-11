@@ -1,22 +1,19 @@
 <template>
     <footer>
         <div class="container">
-
+            <span>Lorem ipsum dolor</span>
         </div>
     </footer>
 </template>
 <script>
     export default {
-
+        name: "AppFooter"
     }
 </script>
 <style scoped>
     footer {
-        /*width: 1078px;*/
-        /*height: 90px;*/
-        background: blue;
-    }
-    footer .container {
-        padding: 80px;
+        width: auto;
+        height: 100px;
+        border: 1px black solid;
     }
 </style>
