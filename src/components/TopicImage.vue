@@ -1,7 +1,7 @@
 <template>
     <div class="topic-container">
         <img src="../assets/about_project.png">
-        <h3>{{ this.topicName }}</h3>
+        <!--<h3>{{ this.topicName }}</h3>-->
     </div>
 </template>
 <script>

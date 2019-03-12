@@ -4,7 +4,7 @@
 
 <script>
     export default {
-        name: "AssessmentPagination"
+        name: "Assessment.vue"
     }
 </script>
 

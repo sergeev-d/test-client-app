@@ -5,11 +5,11 @@
             <div v-if="assessments.length === 0" class="assessment-preview">
                 Нет доступных оценок
             </div>
-            <!--<assessment-preview-->
-                    <!--v-for="(article, index) in assessments"-->
-                    <!--:article="article"-->
-                    <!--:key="article.title + index"-->
-            <!--/>-->
+            <assessment-preview
+                    v-for="(assessment) in assessments"
+                    :assessment=assessment
+                    :key="assessment.id"
+            />
             <assessment-pagination/>
         </div>
     </div>

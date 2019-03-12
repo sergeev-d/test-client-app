@@ -43,7 +43,8 @@ const mutations = {
     [FETCH_END](state, { assessments, assessmentsCount }) {
         state.isLoading = false;
         state.assessments = assessments;
-        state.assessmentsCount = assessmentsCount
+        state.assessmentsCount = assessmentsCount;
+
     }
 };
 

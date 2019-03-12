@@ -15,6 +15,7 @@ const ApiService = {
         Vue.axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*';
     },
     query(resource, params) {
+        ApiService.setHeader();
         return Vue.axios.get(resource, params).catch(error => {
             throw new Error(`ApiService ${error}`);
         });
@@ -25,7 +26,6 @@ export default ApiService;
 
 export const AssessmentService = {
     query(params) {
-        console.log(params);
         return ApiService.query(("assessments"), {
             params: params
         })

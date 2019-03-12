@@ -10,7 +10,7 @@ export default new Router({
             component: () => import("@/views/Home")
         },
         {
-            name: "assessment",
+            name: "assessments",
             path: "/assessments",
             component: () => import("@/views/Assessments")
         },
@@ -18,7 +18,13 @@ export default new Router({
             name: "login",
             path: "/login",
             component: () => import("@/views/Login")
-        }
+        },
+        {
+            name: "assessment",
+            path: "/assessment/:id",
+            component: () => import("@/views/Assessment"),
+            props: true
+        },
     ],
     mode: 'history'
 })
