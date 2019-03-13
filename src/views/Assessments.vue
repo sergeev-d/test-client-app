@@ -1,5 +1,5 @@
 <template>
-    <div class="container">
+    <div class="assessments-container">
         <topic-image
                 :topicName=this.topicName
         ></topic-image>

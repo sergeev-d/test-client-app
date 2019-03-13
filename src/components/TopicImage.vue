@@ -17,8 +17,9 @@ export default {
 </script>
 <style scoped>
     .topic-container {
-        width: 100%;
+        width: auto;
         height: 250px;
         border: 1px black solid;
+        background-color: cornflowerblue;
     }
 </style>

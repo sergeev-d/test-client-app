@@ -1,12 +1,12 @@
 <template>
-    <div class="assessment-container">
-        <h1>Assessment</h1>
+    <div>
+        <h1>Not found</h1>
     </div>
 </template>
 
 <script>
     export default {
-        name: "Assessment.vue"
+        name: "NotFound.vue"
     }
 </script>
 

@@ -1,5 +1,5 @@
 <template>
-    <div class="container">
+    <div class="a-list-container">
         <div v-if="isLoading" class="assessment-preview">Загрузка доступных оценок</div>
         <div v-else>
             <div v-if="assessments.length === 0" class="assessment-preview">
@@ -66,4 +66,7 @@
     }
 </script>
 <style>
+    .a-list-container {
+        background-color: bisque;
+    }
 </style>

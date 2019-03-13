@@ -31,7 +31,7 @@
 
 <style scoped>
     .assessment-preview-container {
-        width: 600px;
+        width: auto;
         height: auto;
         border: 1px black solid;
         background: antiquewhite;

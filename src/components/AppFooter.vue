@@ -15,5 +15,6 @@
         width: auto;
         height: 100px;
         border: 1px black solid;
+        background-color: beige;
     }
 </style>

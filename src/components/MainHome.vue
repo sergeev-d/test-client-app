@@ -10,7 +10,7 @@
 </script>
 <style scoped>
     .main-container {
-        width: 100%;
+        width: auto;
         height: 500px;
         border: 1px black solid;
     }

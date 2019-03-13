@@ -6,14 +6,13 @@
   </div>
 </template>
 <script>
-  import AppHeader from "@/components/TheHeader";
-  import AppFooter from "@/components/TheFooter";
+    import AppHeader from "@/components/AppHeader";
+    import AppFooter from "@/components/AppFooter";
 
-  export default {
+    export default {
     components: {
         AppHeader: AppHeader,
         AppFooter: AppFooter
-
     }
   }
 </script>

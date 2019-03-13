@@ -1,7 +1,7 @@
 <template>
-    <div>
+    <div class="home-container">
         <topic-image
-                :topicName=this.topicName
+                :topicName=topicName
         ></topic-image>
         <main-home></main-home>
     </div>

@@ -20,7 +20,7 @@
                 <input
                         type="password"
                         id="password"
-                        class="form-control"
+                        class="form-control form-control-sm"
                         :class="{'is-invalid': $v.password.$error}"
                         @blur="$v.password.$touch()"
                         v-model="password"
@@ -35,7 +35,7 @@
                 <input
                         type="password"
                         id="confirmPassword"
-                        class="form-control"
+                        class="form-control form-control-sm"
                         :class="{'is-invalid': $v.confirmPassword.$error}"
                         @blur="$v.confirmPassword.$touch()"
                         v-model="confirmPassword"

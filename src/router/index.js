@@ -6,6 +6,7 @@ Vue.use(Router);
 export default new Router({
     routes: [
         {
+            name: "home",
             path: "/", //localhost:8080
             component: () => import("@/views/Home")
         },
@@ -15,14 +16,25 @@ export default new Router({
             component: () => import("@/views/Assessments")
         },
         {
-            name: "login",
-            path: "/login",
-            component: () => import("@/views/Login")
+            name: "signin",
+            path: "/signin",
+            component: () => import("@/views/SignIn")
+        },
+        {
+            name: "signup",
+            path: "/signup",
+            component: () => import("@/views/SignUp")
         },
         {
             name: "assessment",
             path: "/assessment/:id",
             component: () => import("@/views/Assessment"),
+            props: true
+        },
+        {
+            name: "*",
+            path: "/*",
+            component: () => import("@/views/NotFound"),
             props: true
         },
     ],
