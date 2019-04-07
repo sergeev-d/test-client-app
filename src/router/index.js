@@ -16,6 +16,11 @@ export default new Router({
             component: () => import("@/views/Assessments")
         },
         {
+            name: "about",
+            path: "/about",
+            component: () => import("@/views/Home")
+        },
+        {
             name: "signin",
             path: "/signin",
             component: () => import("@/views/SignIn")
@@ -30,6 +35,35 @@ export default new Router({
             path: "/assessment/:id",
             component: () => import("@/views/Assessment"),
             props: true
+        },
+        {
+            name: "user-account",
+            path: "/user-account",
+            component: () => import("@/views/UserAccount"),
+            props: true,
+            children: [
+                {
+                    path: "",
+                    name: "dashboard",
+                    component: () => import("@/views/UserAccount")
+                },
+                {
+                    path: "profile",
+                    name: "profile",
+                    component: () => import("@/views/UserAccount")
+                },
+                {
+                    path: "results",
+                    name: "results",
+                    component: () => import("@/views/UserAccount")
+                }
+                // },
+                // {
+                //     path: "organizations",
+                //     name: "organizations",
+                //     component: () => import("@/views/HomeTag")
+                // }
+            ]
         },
         {
             name: "*",

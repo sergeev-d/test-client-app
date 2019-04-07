@@ -16,8 +16,16 @@ const ApiService = {
     },
     query(resource, params) {
         ApiService.setHeader();
-        return Vue.axios.get(resource, params).catch(error => {
-            throw new Error(`ApiService ${error}`);
+        return Vue.axios.get(resource, params)
+            .catch(error => {
+                throw new Error(`ApiService ${error}`);
+        });
+    },
+    post(resource, params) {
+        ApiService.setHeader();
+        return Vue.axios.post(`${resource}`, params)
+            .catch(error => {
+                throw new Error(`ApiService ${error}`);
         });
     }
 };

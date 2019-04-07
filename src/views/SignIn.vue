@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-        <form action="" class="pt-3" @submit.prevent="onSubmit">
+        <form action="" class="pt-3" @submit.prevent="onSubmit(email, password)">
             <div class="form-group">
                 <label for="email">Email</label>
                 <input
@@ -30,20 +30,20 @@
                     Password field should be more than {{ $v.password.$params.minLength.min }}, now is {{ password.length }}
                 </div>
             </div>
-            <div class="form-group">
-                <label for="confirmPassword">Confirm password</label>
-                <input
-                        type="password"
-                        id="confirmPassword"
-                        class="form-control form-control-sm"
-                        :class="{'is-invalid': $v.confirmPassword.$error}"
-                        @blur="$v.confirmPassword.$touch()"
-                        v-model="confirmPassword"
-                >
-                <div class="invalid-feedback" v-if="!$v.confirmPassword.sameAs">
-                    Password should be the same
-                </div>
-            </div>
+            <!--<div class="form-group">-->
+                <!--<label for="confirmPassword">Confirm password</label>-->
+                <!--<input-->
+                        <!--type="password"-->
+                        <!--id="confirmPassword"-->
+                        <!--class="form-control form-control-sm"-->
+                        <!--:class="{'is-invalid': $v.confirmPassword.$error}"-->
+                        <!--@blur="$v.confirmPassword.$touch()"-->
+                        <!--v-model="confirmPassword"-->
+                <!--&gt;-->
+                <!--<div class="invalid-feedback" v-if="!$v.confirmPassword.sameAs">-->
+                    <!--Password should be the same-->
+                <!--</div>-->
+            <!--</div>-->
             <button
                     class="btn btn-success"
                     type="submit"
@@ -53,14 +53,12 @@
     </div>
 </template>
 <script>
-    import { required, email, minLength, sameAs } from 'vuelidate/lib/validators'
-    import axios from 'axios'
-
-    axios.defaults.headers.common['Accept'] = 'application/json';
-    axios.defaults.headers.common['Content-Type'] = 'application/json';
-    axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*';
+    // import { required, email, minLength, sameAs } from 'vuelidate/lib/validators'
+    import { required, email, minLength } from 'vuelidate/lib/validators'
+    import { LOGIN } from "../store/actions.type"
 
     export default {
+        name : "SignIn",
         data () {
             return {
                 email: '',
@@ -69,17 +67,9 @@
             }
         },
         methods: {
-            onSubmit () {
-                const login = {
-                    email : this.email,
-                    password : this.password
-                }
-
-                axios.post('http://localhost:9999/login', login)
-                    .then(response => console.log(response.data))
-                    .catch(error => {
-                       console.log(error.response)
-                    });
+            onSubmit (email, password) {
+                this.$store.dispatch(LOGIN, { email, password} )
+                    .then(() => this.$router.push({ name: "home" }))
             }
         },
         validations: {
@@ -88,7 +78,7 @@
                 email,
                 uniqueEmail: function (newEmail) {
                     if (newEmail === '') return true
-                    return new Promise((resolve, reject) => {
+                    return new Promise((resolve) => {
                         setTimeout(() => {
                             const val = newEmail!== 'test@mail.ru'
                             resolve(val)
@@ -99,12 +89,13 @@
             password: {
                 required,
                 minLength: minLength(8)
-            },
-            confirmPassword: {
-                sameAs: sameAs((vue) => {
-                    return vue.password
-                })
             }
+            // ,
+            // confirmPassword: {
+            //     sameAs: sameAs((vue) => {
+            //         return vue.password
+            //     })
+            // }
         }
     }
 </script>
