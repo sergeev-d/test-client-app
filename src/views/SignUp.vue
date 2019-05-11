@@ -7,7 +7,7 @@
 <script>
     import StepProgressBar from "@/components/StepProgressBar"
     export default {
-        name: "SignUp.vue",
+        name: "Sign.vue",
         components: {
             StepProgressBar
         }

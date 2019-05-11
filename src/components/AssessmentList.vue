@@ -18,7 +18,7 @@
 <script>
     import AssessmentPreview from "../components/AssessmentPreview"
     import AssessmentPagination from "../components/AssessmentPagination"
-    import { FETCH_ASSESSMENTS} from "../store/actions.type";
+    import { FETCH_ASSESSMENTS } from "../store/actions.type";
     import { mapGetters } from "vuex";
 
     export default {

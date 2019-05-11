@@ -7,6 +7,7 @@
                 </router-link>
                 <div class="collapse navbar-collapse">
                     <ul v-if="!isAuthenticated" class="navbar-nav">
+                        <hr/>
                         <router-link tag="li" class="nav-item" to="/signin" active-class="active">
                             <a class="nav-link">Вход</a>
                         </router-link>
@@ -15,13 +16,16 @@
                         </router-link>
                     </ul>
                     <ul v-else class="navbar-nav">
-                        <!--<router-link tag="li" class="nav-item" to="/signout" active-class="active">-->
-                            <!--<a class="nav-link">Выход</a>-->
-                        <!--</router-link>-->
-                        <hr />
+                        <hr/>
                         <button @click="logout" class="btn btn-success">
                             Выход
                         </button>
+                        <div>
+                            <i>{{ currentUser.name}}</i>
+                            <p v-if=isCustomer(currentUser.type)>{{ "Клиент" }}</p>
+                            <span v-else>{{ "Эксперт" }}</span>
+                            <span>{{ currentUser.email}}</span>
+                        </div>
                     </ul>
                 </div>
             </nav>
@@ -33,22 +37,13 @@
                         <router-link tag="li" class="nav-item" to="/assessments" active-class="active">
                             <a class="nav-link">Оценки</a>
                         </router-link>
-                        <router-link tag="li" class="nav-item" to="/contacts" active-class="active">
-                            <a class="nav-link">Контакты</a>
-                        </router-link>
                     </ul>
                     <ul v-else class="navbar-nav">
-                        <router-link tag="li" class="nav-item" exact to="/about" active-class="active">
-                            <a class="nav-link">О проекте</a>
-                        </router-link>
                         <router-link tag="li" class="nav-item" to="/assessments" active-class="active">
                             <a class="nav-link">Оценки</a>
                         </router-link>
-                        <router-link tag="li" class="nav-item" to="/contacts" active-class="active">
-                            <a class="nav-link">Контакты</a>
-                        </router-link>
-                        <router-link tag="li" class="nav-item" to="/user-account" active-class="active">
-                            <a class="nav-link">Аккаунт</a>
+                        <router-link tag="li" class="nav-item" to="/profile" active-class="active">
+                            <a class="nav-link">Профиль</a>
                         </router-link>
                     </ul>
                 </div>
@@ -62,12 +57,16 @@
     export default {
         name: "AppHeader",
         computed: {
-            ...mapGetters(["isAuthenticated","currentUser"])
+            ...mapGetters(["isAuthenticated", "currentUser"])
         },
         methods: {
             logout(){
                 this.$store.dispatch(LOGOUT,{})
                     .then(() => this.$router.push({ name: "home" }))
+            },
+            isCustomer(type) {
+                return type === 'CUSTOMER'
+
             }
         }
     }

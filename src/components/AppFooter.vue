@@ -1,7 +1,7 @@
 <template>
     <footer>
         <div class="container">
-            <span>Lorem ipsum dolor</span>
+            <span>About footer</span>
         </div>
     </footer>
 </template>

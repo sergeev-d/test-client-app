@@ -16,9 +16,10 @@ export default new Router({
             component: () => import("@/views/Assessments")
         },
         {
-            name: "about",
-            path: "/about",
-            component: () => import("@/views/Home")
+            name: "assessment",
+            path: "/assessment/:id",
+            component: () => import("@/views/Assessment"),
+            props: true
         },
         {
             name: "signin",
@@ -31,38 +32,21 @@ export default new Router({
             component: () => import("@/views/SignUp")
         },
         {
-            name: "assessment",
-            path: "/assessment/:id",
-            component: () => import("@/views/Assessment"),
-            props: true
-        },
-        {
-            name: "user-account",
-            path: "/user-account",
-            component: () => import("@/views/UserAccount"),
+            name: "profile",
+            path: "/profile",
             props: true,
+            component: () => import("@/views/Profile"),
             children: [
                 {
-                    path: "",
-                    name: "dashboard",
-                    component: () => import("@/views/UserAccount")
+                    path: "info",
+                    name: "info",
+                    component: () => import("@/views/Profile")
                 },
                 {
-                    path: "profile",
-                    name: "profile",
-                    component: () => import("@/views/UserAccount")
-                },
-                {
-                    path: "results",
                     name: "results",
-                    component: () => import("@/views/UserAccount")
+                    path: "results",
+                    component: () => import("@/views/Profile")
                 }
-                // },
-                // {
-                //     path: "organizations",
-                //     name: "organizations",
-                //     component: () => import("@/views/HomeTag")
-                // }
             ]
         },
         {
