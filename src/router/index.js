@@ -21,6 +21,52 @@ export default new Router({
             component: () => import("@/views/Assessment"),
             props: true
         },
+        // {
+        //     name: "profile",
+        //     path: "/profile/:id",
+        //     props: true,
+        //     component: () => import("@/views/Profile")
+        // },
+        {
+            name: "client-profile",
+            path: "/client-profile/",
+            component:() => import("@/views/Profile"),
+            props: true,
+            children: [
+                {
+                    path: 'dashboard',
+                    name: 'dashboard',
+                    component: () => import("@/components/ClientDashboard")
+                },
+                {
+                    path: 'client-info',
+                    name: 'client-info',
+                    component: () => import("@/components/ClientInfo")
+                },
+                {
+                    name: 'results',
+                    path: 'results',
+                    component: () => import("@/components/ClientAssessmentResult")
+                }
+            ]
+        },
+        {
+            name: "expert-profile",
+            path: "/expert-profile/:id",
+            component: () => import("@/views/Profile"),
+            children: [
+                {
+                    path: "expert-info",
+                    name: "expert-info\"",
+                    component: () => import("@/views/Profile")
+                },
+                {
+                    name: "expert-assessments",
+                    path: "expert-assessments",
+                    component: () => import("@/views/Profile")
+                }
+            ]
+        },
         {
             name: "signin",
             path: "/signin",
@@ -30,24 +76,6 @@ export default new Router({
             name: "signup",
             path: "/signup",
             component: () => import("@/views/SignUp")
-        },
-        {
-            name: "profile",
-            path: "/profile",
-            props: true,
-            component: () => import("@/views/Profile"),
-            children: [
-                {
-                    path: "info",
-                    name: "info",
-                    component: () => import("@/views/Profile")
-                },
-                {
-                    name: "results",
-                    path: "results",
-                    component: () => import("@/views/Profile")
-                }
-            ]
         },
         {
             name: "*",

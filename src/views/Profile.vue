@@ -1,19 +1,17 @@
 <template>
-    <div class="account-container">
+    <div class="container">
         <div class="row">
             <account-menu></account-menu>
-            <account-main></account-main>
+            <router-view></router-view>
         </div>
     </div>
 </template>
 <script>
     import AccountMenu from "@/components/AccountMenu.vue"
-    import AccountMain from "@/components/AccountMain"
 
     export default {
         components: {
-            AccountMenu,
-            AccountMain
+            AccountMenu
         }
     }
 </script>

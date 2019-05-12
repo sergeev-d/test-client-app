@@ -1,25 +1,79 @@
 <template>
     <div class="col-md-3" style="border: 1px black solid;height:1200px">
-        <ul>
-            <router-link tag="li" to="/profile/info" exact active-class="active">
-                <a>Профиль</a>
-            </router-link>
-            <router-link tag="li" to="/profile/results" exact active-class="active">
+        <ul v-if="currentUser.type === this.accountType">
+            <li>
+                <router-link
+                        active-class="active"
+                        :to="{ name:'dashboard' }"
+                        exact
+                >
+                    <a>Dashboard</a>
+                </router-link>
+            </li>
+            <li>
+                <router-link
+                        :to="{ name:'client-info' }"
+                >
+                    <a>Профиль</a>
+                </router-link>
+            </li>
+            <li>
+                <router-link
+                        :to="{ name:'results' }"
+                >
                 <a>Результаты</a>
-            </router-link>
-            <router-link tag="li" to="/profile/dashboard" exact active-class="active">
-                <a>Dashboard</a>
-            </router-link>
-            <router-link tag="li" to="/profile/organizations" exact active-class="active">
-                <a>Организации</a>
-            </router-link>
+                </router-link>
+            </li>
         </ul>
+        <ul v-else>
+            <li>
+                <router-link
+                        active-class="active"
+                        :to="{ name:'dashboard' }"
+                        exact >
+                    <a>Dashboard</a>
+                </router-link>
+            </li>
+            <li>
+                <router-link
+                        active-class="active"
+                        :to="{ name:'client-info' }"
+                        exact >
+                    <a>Профиль</a>
+                </router-link>
+            </li>
+            <li>
+                <router-link
+                        active-class="active"
+                        :to="{ name:'results'}"
+                        exact >
+                    <a>Оценки</a>
+                </router-link>
+            </li>
+        </ul>
+
+        <!--<ul>-->
+            <!--<li v-for="item in children" :key="item.path">-->
+                <!--<router-link :to="item.path">{{ item.name.split('.').pop() }}</router-link>-->
+            <!--</li>-->
+        <!--</ul>-->
     </div>
 </template>
 <script>
-    export default {
-        name : "AccountMenu"
+    import { mapGetters } from "vuex";
 
+    export default {
+        name : "AccountMenu",
+        data() {
+            return {
+                children: [],
+                accountType:"CUSTOMER"
+            }
+        },
+        watch: {},
+        computed: {
+            ...mapGetters(["currentUser"]),
+        }
     }
 </script>
 <style scoped>

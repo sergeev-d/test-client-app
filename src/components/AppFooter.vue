@@ -1,7 +1,16 @@
 <template>
     <footer>
-        <div class="container">
-            <span>About footer</span>
+        <div class="wrapper">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="footer-container">
+                        ОЦЕНКА ЭФФЕКТИВНОСТИ БИЗНЕСА.РУ <br>
+                        г. Санкт-Петербург, ул. Биржевая, д. 17 <br>
+                        Пользовательское соглашение | Политика конфеденциальности<br>
+                        ® 2019 ОЦЕНКА ЭФФЕКТИВНОСТИ.РУ. Все права защищены.
+                    </div>
+                </div>
+            </div>
         </div>
     </footer>
 </template>

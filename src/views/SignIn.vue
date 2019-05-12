@@ -68,8 +68,8 @@
         },
         methods: {
             onSubmit (email, password) {
-                this.$store.dispatch(LOGIN, { email, password} )
-                    .then(() => this.$router.push({ name: "home" }))
+                this.$store.dispatch(LOGIN, { email, password } )
+                    .then(() => this.$router.push({ name: 'home' }))
             }
         },
         validations: {
@@ -80,7 +80,7 @@
                     if (newEmail === '') return true
                     return new Promise((resolve) => {
                         setTimeout(() => {
-                            const val = newEmail!== 'test@mail.ru'
+                            const val = newEmail!== 'test@mail.ru';
                             resolve(val)
                         }, 1000)
                     })

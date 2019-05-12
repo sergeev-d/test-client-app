@@ -2,12 +2,12 @@ import ApiService from "@/common/api.service";
 import JwtService from "@/common/jwt.service";
 import {
   LOGIN,
-  LOGOUT
+  LOGOUT,
   // REGISTER,
-  // CHECK_AUTH,
+  CHECK_AUTH,
   // UPDATE_USER
-} from "./actions.type";
-import { SET_AUTH, PURGE_AUTH, SET_ERROR } from "./mutations.type";
+} from "../actions.type";
+import { SET_AUTH, PURGE_AUTH, SET_ERROR } from "../mutations.type";
 
 const state = {
   errors: null,
@@ -39,7 +39,17 @@ const actions = {
   },
   [LOGOUT](context) {
     context.commit(PURGE_AUTH);
-  }
+    // return new Promise(resolve => {
+    //   ApiService.post("logout")
+    //       .then(() => {
+    //         context.commit(PURGE_AUTH);
+    //         resolve();
+    //       })
+    //       .catch(({ response }) => {
+    //         context.commit(SET_ERROR, response.data.errors);
+    //       });
+    // });
+  },
   // [REGISTER](context, credentials) {
   //   return new Promise((resolve, reject) => {
   //     ApiService.post("users", { user: credentials })
@@ -53,20 +63,21 @@ const actions = {
   //       });
   //   });
   // },
-  // [CHECK_AUTH](context) {
-  //   if (JwtService.getToken()) {
-  //     ApiService.setHeader();
-  //     ApiService.get("user")
-  //       .then(({ data }) => {
-  //         context.commit(SET_AUTH, data.user);
-  //       })
-  //       .catch(({ response }) => {
-  //         context.commit(SET_ERROR, response.data.errors);
-  //       });
-  //   } else {
-  //     context.commit(PURGE_AUTH);
-  //   }
-  // },
+  [CHECK_AUTH](context) {
+    if (JwtService.getToken()) {
+      ApiService.setHeader();
+      ApiService.get("user")
+        .then(({ data }) => {
+          context.commit(SET_AUTH, data.user);
+        })
+        .catch(({ response }) => {
+          context.commit(SET_ERROR, response.data.errors);
+        });
+
+    } else {
+      context.commit(PURGE_AUTH);
+    }
+  },
   // [UPDATE_USER](context, payload) {
   //   const { email, username, password, image, bio } = payload;
   //   const user = {
@@ -97,10 +108,10 @@ const mutations = {
     JwtService.saveToken(state.user.token);
   },
   [PURGE_AUTH](state) {
+    JwtService.destroyToken();
     state.isAuthenticated = false;
     state.user = {};
     state.errors = {};
-    JwtService.destroyToken();
   }
 };
 

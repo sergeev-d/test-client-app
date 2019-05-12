@@ -23,9 +23,9 @@ const ApiService = {
     },
     post(resource, params) {
         ApiService.setHeader();
-        return Vue.axios.post(`${resource}`, params)
+        return Vue.axios.post(resource, params)  //`${resource}`
             .catch(error => {
-                throw new Error(`ApiService ${error}`);
+                    throw new Error(`ApiService ${error}`);
         });
     }
 };

@@ -1,9 +1,9 @@
-import { AssessmentService } from "../common/api.service";
-import { FETCH_ASSESSMENTS } from "./actions.type";
+import { AssessmentService } from "../../common/api.service";
+import { FETCH_ASSESSMENTS } from "../actions.type";
 import {
     FETCH_START,
     FETCH_END
-} from "./mutations.type";
+} from "../mutations.type";
 
 const state = {
     assessments: [],
