@@ -1,67 +1,69 @@
 <template>
     <div>
         <div>
-            <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                <router-link class="navbar-brand" :to="{ name: 'home' }">
-                    Оценка Эффективности
-                </router-link>
-                <ul v-if="!isAuthenticated" class="navbar-nav">
-                    <li>
-                        <router-link tag="li"
-                                     class="nav-item"
-                                     :to="{ name: 'signup' }"
-                                     active-class="active"
-                        >
-                            <a class="nav-link">Регистрация</a>
-                        </router-link>
-                    </li>
-                    <li>
-                        <router-link
-                                     class="nav-item"
-                                     :to="{ name: 'signin' }"
-                                     active-class="active"
-                        >
-                            <a class="nav-link">Вход</a>
-                        </router-link>
-                    </li>
+            <nav сlass="topnav">
+                <div class="wrapper">
+                    <div class="row">
+                        <div class="col-md-5">
+                            <div class="logo-container">
+                                <router-link class="logo-name" :to="{ name: 'home' }">
+                                    <span><span>оценка</span> эффективности бизнеса.ru</span>
+                                </router-link>
+                            </div>
+                        </div>
+                        <nav class="col-md-7">
+                            <div class="topnav-item">
+                                <div v-if="!isAuthenticated" class="navbar-nav">
+                                    <router-link tag="div" class="nav-item" to="/signin" active-class="active">
+                                        <a class="nav-link">Вход</a>
+                                    </router-link>
+                                    <router-link tag="div" class="nav-item" to="/signup" active-class="active">
+                                        <a class="nav-link">Регистрация</a>
+                                    </router-link>
+                                </div>
+                                <div v-else class="navbar-nav">
+                                    <router-link
+                                            tag="div"
+                                            class="nav-item"
+                                            active-class="active"
+                                            :to="{ name: 'home'}"
+                                            exact>
+                                        <button @click="logout()" class="btn-simple">
+                                            Выход <i class="fas fa-sign-out-alt"></i>
+                                        </button>
+                                    </router-link>
+                                    <div v-if="currentUser.name && currentUser.type === 'CUSTOMER'">
+                                        <router-link
+                                                tag="div"
+                                                class="nav-item"
+                                                active-class="active"
+                                                :to="{ name: 'results'}"
 
-                </ul>
-                <ul v-else class="navbar-nav">
-                    <li>
-                        <router-link
-                                class="nav-item"
-                                active-class="active"
-                                :to="{ name: 'home'}"
-                                exact>
-                            <button @click="logout()" class="btn btn-success">
-                                Выход
-                            </button>
-                        </router-link>
-                    </li>
-                    <li v-if="currentUser.name && currentUser.type === 'CUSTOMER'">
-                        <router-link
-                                     class="nav-item"
-                                     active-class="active"
-                                     :to="{ name: 'dashboard'}"
+                                        >
 
-                        >
+                                            <a class="nav-link">{{ currentUser.name }}</a>
+                                        </router-link>
+                                    </div>
+                                    <div v-else-if="currentUser.name && currentUser.type === 'EXPERT'">
+                                        <router-link
+                                                tag="div"
+                                                class="nav-item"
+                                                active-class="active"
+                                                exact
+                                                :to="{ name: 'expert-profile'}"
+                                        >
 
-                            <a class="nav-link">{{ currentUser.name }}</a>
-                        </router-link>
-                    </li>
-                    <li v-else-if="currentUser.name && currentUser.type === 'EXPERT'">
-                        <router-link
-                                class="nav-item"
-                                active-class="active"
-                                exact
-                                :to="{ name: 'expert-profile'}"
-                        >
+                                            <a class="nav-link">{{ currentUser.name }}</a>
+                                        </router-link>
+                                    </div>
+                                </div>
+                            </div>
 
-                            <a class="nav-link">{{ currentUser.name }}</a>
-                        </router-link>
-                    </li>
-                </ul>
+                        </nav> <!-- col-md-7 -->
+                    </div> <!-- row -->
+                </div> <!-- wrapper -->
             </nav>
+
         </div>
     </div>
 </template>

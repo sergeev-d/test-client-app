@@ -10,7 +10,7 @@ const ApiService = {
     },
     setHeader() {
         //Vue.axios.defaults.headers.common["Authorization"] = `Token ${JwtService.getToken()}`;
-        Vue.axios.defaults.headers.common['Accept'] = 'application/json';
+        Vue.axios.defaults.headers.common['Accept'] = ['application/json','application/jpg'];
         Vue.axios.defaults.headers.common['Content-Type'] = 'application/json';
         Vue.axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*';
     },
@@ -36,6 +36,17 @@ export const AssessmentService = {
     query(params) {
         return ApiService.query(("assessments"), {
             params: params
+        })
+    }
+
+};
+
+export const DownloadService = {
+    get(params) {
+        return ApiService.query(("download_document"), {
+            params: {
+                doc_id:params
+            }
         })
     }
 

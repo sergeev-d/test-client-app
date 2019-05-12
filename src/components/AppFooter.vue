@@ -19,11 +19,6 @@
         name: "AppFooter"
     }
 </script>
-<style scoped>
-    footer {
-        width: auto;
-        height: 100px;
-        border: 1px black solid;
-        background-color: beige;
-    }
+<style>
+
 </style>

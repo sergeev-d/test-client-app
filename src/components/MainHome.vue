@@ -147,35 +147,7 @@
                     </div>
                 </div>
             </div>
-            <!-- Доп. часть-->
-            <div class="row">
-                <div class="table">
-                    <h5>Полученные результаты</h5>
-                    <table>
-                        <tr>
-                            <th>Наименование оценки</th>
-                            <th>Дата и время размещения результата</th>
-                            <th>Результаты</th>
-                        </tr>
-                        <tr>
-                            <td>Оценка 1</td>
-                            <td>20.05.2018 18:07</td>
-                            <td><a href="">Просмотреть</a></td>
-                        </tr>
-                        <tr>
-                            <td>Оценка 2</td>
-                            <td>20.05.2018 18:07</td>
-                            <td><a href="">Просмотреть</a></td>
-                        </tr>
-                        <tr>
-                            <td>Оценка 3</td>
-                            <td>20.05.2018 18:07</td>
-                            <td><a href="">Просмотреть</a></td>
-                        </tr>
-                    </table>
-                    <button class="btn-gray2">ВОЙТИ</button>
-                </div>
-            </div>
+
         </div>
     </div>
 </template>
@@ -185,9 +157,5 @@
     }
 </script>
 <style scoped>
-    .main-container {
-        width: auto;
-        height: 500px;
-        border: 1px black solid;
-    }
+
 </style>

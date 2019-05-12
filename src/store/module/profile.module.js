@@ -1,6 +1,8 @@
 import ApiService from "@/common/api.service";
+import { DownloadService } from "../../common/api.service";
 
-import { FETCH_PROFILE, FETCH_PROFILE_ASSESSMENTS_RESULT } from "../actions.type";
+
+import {DOWNLOAD_FILE, FETCH_PROFILE, FETCH_PROFILE_ASSESSMENTS_RESULT} from "../actions.type";
 
 import { SET_ERROR, SET_PROFILE, SET_PROFILE_ASSESSMENTS_RESULT } from "../mutations.type";
 
@@ -21,7 +23,7 @@ const getters = {
 };
 
 const actions = {
-    FETCH_PROFILE(context, userId){
+    [FETCH_PROFILE](context, userId){
         return new Promise(resolve => {
             ApiService.get("profile", { userId })
                 .then(({ data }) => {
@@ -33,7 +35,7 @@ const actions = {
                 });
         });
     },
-    FETCH_PROFILE_ASSESSMENTS_RESULT(context, userId){
+    [FETCH_PROFILE_ASSESSMENTS_RESULT](context, userId){
         return new Promise(resolve => {
             ApiService.get("profile_assessments_result", { userId })
                 .then(({ data }) => {
@@ -43,6 +45,14 @@ const actions = {
                 .catch(({ response }) => {
                     context.commit(SET_ERROR, response.data.errors);
                 });
+        });
+    },
+    [DOWNLOAD_FILE](context, link){
+        return new Promise(resolve => {
+            DownloadService.get(link)
+                .then(({data}) => {
+                    resolve(data);
+            });
         });
     }
 };
