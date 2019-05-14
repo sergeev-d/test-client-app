@@ -32,7 +32,7 @@
                                             Выход <i class="fas fa-sign-out-alt"></i>
                                         </button>
                                     </router-link>
-                                    <div v-if="currentUser.name && currentUser.type === 'CUSTOMER'">
+                                    <div v-if="currentUser.name && isCustomer(currentUser.type)">
                                         <router-link
                                                 tag="div"
                                                 class="nav-item"
@@ -40,17 +40,16 @@
                                                 :to="{ name: 'results'}"
 
                                         >
-
                                             <a class="nav-link">{{ currentUser.name }}</a>
                                         </router-link>
                                     </div>
-                                    <div v-else-if="currentUser.name && currentUser.type === 'EXPERT'">
+                                    <div v-else-if="currentUser.name && isExpert(currentUser.type)">
                                         <router-link
                                                 tag="div"
                                                 class="nav-item"
                                                 active-class="active"
                                                 exact
-                                                :to="{ name: 'expert-profile'}"
+                                                :to="{ name: 'expert-assessments'}"
                                         >
 
                                             <a class="nav-link">{{ currentUser.name }}</a>
@@ -70,6 +69,8 @@
 <script>
     import { LOGOUT } from "../store/actions.type"
     import { mapGetters } from "vuex"
+    import { profileType } from "../mixins/utils.js"
+
 
     export default {
         name: "AppHeader",
@@ -81,7 +82,8 @@
                 this.$store.dispatch(LOGOUT)
                     .then(() => this.$router.push({name: "home"}))
             }
-        }
+        },
+        mixins:[profileType]
     }
 </script>
 <style>

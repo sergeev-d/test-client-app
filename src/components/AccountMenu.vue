@@ -1,10 +1,10 @@
 <template>
     <div class="col-md-3 sidebar">
-        <ul v-if="currentUser.type === this.accountType">
+        <ul v-if="isCustomer(currentUser.type)">
             <!--            <li>-->
             <!--                <router-link-->
             <!--                        active-class="active"-->
-            <!--                        :to="{ name:'dashboard' }"-->
+            <!--                        :to="{ name:'client-main' }"-->
             <!--                        exact-->
             <!--                >-->
             <!--                    <a>Dashboard</a>-->
@@ -35,25 +35,22 @@
         <ul v-else>
             <li>
                 <router-link
-                        active-class="active"
-                        :to="{ name:'dashboard' }"
-                        exact >
-                    <a>Dashboard</a>
+                        :to="{ name:'expert-main' }"
+                >
+                    <a>Главная</a>
                 </router-link>
             </li>
             <li>
                 <router-link
-                        active-class="active"
-                        :to="{ name:'client-info' }"
-                        exact >
+                        :to="{ name:'expert-info' }"
+                >
                     <a><i class="fas fa-user-edit"></i> Профиль</a>
                 </router-link>
             </li>
             <li>
                 <router-link
-                        active-class="active"
-                        :to="{ name:'results'}"
-                        exact >
+                        :to="{ name:'expert-assessments'}"
+                >
                     <a><i class="fas fa-book"></i> Оценки</a>
                 </router-link>
             </li>
@@ -68,19 +65,25 @@
 </template>
 <script>
     import { mapGetters } from "vuex";
+    import { profileType } from "../mixins/utils.js"
 
     export default {
         name : "AccountMenu",
         data() {
             return {
-                children: [],
-                accountType:"CUSTOMER"
+                children: []
             }
         },
         watch: {},
         computed: {
             ...mapGetters(["currentUser"]),
-        }
+        },
+        // methods:{
+        //     isCustomer(profileType){
+        //         return profileType.toLowerCase() === 'customer'
+        //     }
+        // }
+        mixins:[profileType]
     }
 </script>
 <style scoped>

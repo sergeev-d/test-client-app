@@ -4,7 +4,11 @@
             <table>
                 <thead>
                 <tr>
-                    <th v-for="column in columns" v-bind:key="column.id">{{ column.name }}</th>
+                    <!--<th v-for="column in columns" v-bind:key="column.id">{{ column.name }}</th>-->
+                    <th>Название</th>
+                    <th>Дата создания</th>
+                    <th>Статус</th>
+                    <th>Результат</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -44,7 +48,7 @@
                     {"id":3, "name":"assessment3", "create_date":"1412743274", "status":"completed", "link":"HCsqqeRy5lo.jpg"}
                 ]
             }
-         },
+        },
         filters: {
             capitalize: function (str) {
                 return str.charAt(0).toUpperCase() + str.slice(1)
@@ -63,7 +67,8 @@
 
             },
             forceFileDownload(response, fileName){
-                const url = window.URL.createObjectURL(new Blob([response.data]));
+                 debugger
+                const url = window.URL.createObjectURL(new Blob([response]));
                 const link = document.createElement('a');
                 link.href = url;
                 link.setAttribute('download', fileName) ;//or any other extension
@@ -76,6 +81,22 @@
                 // result.href = window.URL.createObjectURL(blob);
                 // result.download = filename;
                 // result.click();
+
+                // var blob = new Blob([response]);
+                // var blobURL = window.URL.createObjectURL(blob);
+                // var tempLink = document.createElement('a');
+                // tempLink.style.display = 'none';
+                // tempLink.href = blobURL;
+                // tempLink.setAttribute('download', fileName);
+                //
+                // if (typeof tempLink.download === 'undefined') {
+                //     tempLink.setAttribute('target', '_blank');
+                // }
+                //
+                // document.body.appendChild(tempLink);
+                // tempLink.click();
+                // document.body.removeChild(tempLink);
+                // window.URL.revokeObjectURL(blobURL);
             }
         }
 

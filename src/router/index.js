@@ -21,12 +21,6 @@ export default new Router({
             component: () => import("@/views/Assessment"),
             props: true
         },
-        // {
-        //     name: "profile",
-        //     path: "/profile/:id",
-        //     props: true,
-        //     component: () => import("@/views/Profile")
-        // },
         {
             name: "client-profile",
             path: "/client-profile/",
@@ -34,8 +28,8 @@ export default new Router({
             props: true,
             children: [
                 {
-                    path: 'dashboard',
-                    name: 'dashboard',
+                    path: 'client-main',
+                    name: 'client-main',
                     component: () => import("@/components/ClientDashboard")
                 },
                 {
@@ -52,18 +46,23 @@ export default new Router({
         },
         {
             name: "expert-profile",
-            path: "/expert-profile/:id",
+            path: "/expert-profile",
             component: () => import("@/views/Profile"),
             children: [
                 {
+                    path: 'expert-main',
+                    name: 'expert-main',
+                    component: () => import("@/components/ExpertDashboard")
+                },
+                {
                     path: "expert-info",
-                    name: "expert-info\"",
-                    component: () => import("@/views/Profile")
+                    name: "expert-info",
+                    component: () => import("@/components/ExpertInfo")
                 },
                 {
                     name: "expert-assessments",
                     path: "expert-assessments",
-                    component: () => import("@/views/Profile")
+                    component: () => import("@/components/ExpertAssessments")
                 }
             ]
         },
