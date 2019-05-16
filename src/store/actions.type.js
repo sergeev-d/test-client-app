@@ -1,7 +1,6 @@
 export const FETCH_ASSESSMENTS = "fetchAssessments";
 
-export const FETCH_CLIENT_PROFILE = "fetchClientProfile";
-export const FETCH_CLIENT_PROFILE = "fetchExpertProfile";
+export const FETCH_USER_PROFILE = "fetchUserProfile";
 export const SAVE_PROFILE = "saveProfile";
 export const FETCH_PROFILE_ORGANIZATIONS = "fetchProfileOrganizations";
 export const ADD_PROFILE_ORGANIZATIONS = "addProfileOrganization";

@@ -14,7 +14,7 @@ public class User extends AbstractBaseEntity {
     private Long id;
 
     @Column(name = "user_type", nullable = false)
-    private Short userType;
+    private Integer userType;
 
     @Column(name = "username", nullable = false, length = 50, unique = true)
     private String username;
@@ -49,7 +49,7 @@ public class User extends AbstractBaseEntity {
     private Date updatedDate;
 
 
-    public static User create(Long id, Short userType, String username, String password, String phoneNumber, String email,
+    public static User create(Long id, Integer userType, String username, String password, String phoneNumber, String email,
                               String firstName, String lastName, String middleName, String organizationName, Date createdDate, Date updatedDate) {
         User user = new User();
         user.id = id;
@@ -72,7 +72,7 @@ public class User extends AbstractBaseEntity {
         return id;
     }
 
-    public Short getUserType() {
+    public Integer getUserType() {
         return userType;
     }
 

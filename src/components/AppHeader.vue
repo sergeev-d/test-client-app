@@ -32,7 +32,7 @@
                                             Выход <i class="fas fa-sign-out-alt"></i>
                                         </button>
                                     </router-link>
-                                    <div v-if="currentUser.name && isCustomer(currentUser.type)">
+                                    <div v-if="currentUser.username && isCustomer(currentUser.type)">
                                         <router-link
                                                 tag="div"
                                                 class="nav-item"
@@ -43,7 +43,7 @@
                                             <a class="nav-link">{{ currentUser.name }}</a>
                                         </router-link>
                                     </div>
-                                    <div v-else-if="currentUser.name && isExpert(currentUser.type)">
+                                    <div v-else-if="currentUser.username && isExpert(currentUser.type)">
                                         <router-link
                                                 tag="div"
                                                 class="nav-item"
@@ -52,7 +52,7 @@
                                                 :to="{ name: 'expert-assessments'}"
                                         >
 
-                                            <a class="nav-link">{{ currentUser.name }}</a>
+                                            <a class="nav-link">{{ currentUser.username }}</a>
                                         </router-link>
                                     </div>
                                 </div>

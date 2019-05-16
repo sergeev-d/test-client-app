@@ -5,12 +5,12 @@ import com.assessments.portal.web.domain.user.SimpleUser;
 import com.assessments.portal.web.domain.user.User;
 import com.assessments.portal.web.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import javax.transaction.Transactional;
+import java.time.Instant;
+import java.util.Date;
 
 @Service
 @Transactional
@@ -19,25 +19,21 @@ public class UserServiceImpl implements UserService {
     private UserRepository userRepository;
 
     @Override
+    public User findByEmail(String email) {
+        return User.create(1l, 1, "test", "12345678", "","123@mail.ru",
+                "User", "", null, "Org", Date.from(Instant.now()), null);
+//        return userRepository.findByEmail(email).get();
+    }
+
+    @Override
     public User findById(Long id) {
-        return userRepository.findById(id).get();
+        return User.create(1l, 1, "test", "12345678", "","123@mail.ru",
+                "User", "", null, "Org", Date.from(Instant.now()), null);
+//        return userRepository.findById(id).get();
     }
 
     @Override
     public void register() throws RegistrationException {
 
-    }
-
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        if (StringUtils.isEmpty(username)) {
-            throw new UsernameNotFoundException("No user found");
-        }
-        User user = userRepository.findByUsername(username);
-        if (user == null) {
-            throw new UsernameNotFoundException("No user found by `" + username + "`");
-        }
-
-        return new SimpleUser(user);
     }
 }

@@ -1,10 +1,10 @@
 export const profileType = {
     methods:{
         isCustomer(profileType){
-            return profileType.toLowerCase() === 'customer'
+            return profileType === 0
         },
         isExpert(profileType){
-            return profileType.toLowerCase() === 'expert'
+            return profileType === 1
         }
     }
 }

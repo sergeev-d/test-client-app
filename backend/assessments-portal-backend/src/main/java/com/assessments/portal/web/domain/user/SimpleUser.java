@@ -1,66 +1,37 @@
 package com.assessments.portal.web.domain.user;
 
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-
 import java.io.Serializable;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.Objects;
 
-public class SimpleUser implements UserDetails, Serializable {
+public class SimpleUser implements Serializable {
     private static final long serialVersionUID = -7144174657188362966L;
 
     private Long userId;
     private String username;
     private String password;
+    private Integer type;
 
     public SimpleUser(User user) {
         this.userId = user.getId();
         this.password = user.getPassword();
         this.username = user.getUsername();
-    }
-
-
-
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Collections.singleton(new SimpleGrantedAuthority("ROLE_USER"));
+        this.type = user.getUserType();
     }
 
     public Long getUserId() {
         return userId;
     }
 
-    @Override
-    public String getPassword() {
-        return null;
-    }
-
-    @Override
     public String getUsername() {
-        return null;
+        return username;
     }
 
-    @Override
-    public boolean isAccountNonExpired() {
-        return true;
+    public String getPassword() {
+        return password;
     }
 
-    @Override
-    public boolean isAccountNonLocked() {
-        return true;
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return true;
+    public Integer getType() {
+        return type;
     }
 
     @Override

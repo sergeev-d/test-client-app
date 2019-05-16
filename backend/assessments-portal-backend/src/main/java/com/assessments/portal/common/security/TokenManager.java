@@ -26,7 +26,8 @@ public class TokenManager {
   public String jwt(Long userId) {
     return Jwts.builder()
       .setSubject(String.valueOf(userId))
-      .signWith(secretKey).compact();
+      .signWith(secretKey)
+            .compact();
   }
 
   /**
@@ -36,7 +37,11 @@ public class TokenManager {
    * @return user id
    */
   public Long verifyJwt(String jws) {
-    String userIdValue = Jwts.parser().setSigningKey(secretKey).parseClaimsJws(jws).getBody().getSubject();
+    String userIdValue = Jwts.parser()
+            .setSigningKey(secretKey)
+            .parseClaimsJws(jws)
+            .getBody()
+            .getSubject();
     return Long.getLong(userIdValue);
   }
 }

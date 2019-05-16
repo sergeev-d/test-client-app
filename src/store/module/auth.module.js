@@ -7,7 +7,7 @@ import {
   CHECK_AUTH,
   // UPDATE_USER
 } from "../actions.type";
-import { SET_AUTH, PURGE_AUTH, SET_ERROR } from "../mutations.type";
+import { SET_AUTH, PURGE_AUTH, SET_ERROR, SET_USER } from "../mutations.type";
 
 const state = {
   errors: null,
@@ -27,7 +27,7 @@ const getters = {
 const actions = {
   [LOGIN](context, {email, password}) {
     return new Promise(resolve => {
-      ApiService.post("login", { email, password })
+      ApiService.post("/login", { email, password })
         .then(({ data }) => {
           context.commit(SET_AUTH, data.user);
           resolve(data);
@@ -66,9 +66,9 @@ const actions = {
   [CHECK_AUTH](context) {
     if (JwtService.getToken()) {
       ApiService.setHeader();
-      ApiService.get("user")
+      ApiService.query("user")
         .then(({ data }) => {
-          context.commit(SET_AUTH, data.user);
+          context.commit(SET_USER, data.user);
         })
         .catch(({ response }) => {
           context.commit(SET_ERROR, response.data.errors);
@@ -106,6 +106,11 @@ const mutations = {
     state.user = user;
     state.errors = {};
     JwtService.saveToken(state.user.token);
+  },
+  [SET_USER](state, user) {
+    state.isAuthenticated = true;
+    state.user = user;
+    state.errors = {};
   },
   [PURGE_AUTH](state) {
     JwtService.destroyToken();
