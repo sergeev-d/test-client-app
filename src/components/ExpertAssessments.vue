@@ -4,9 +4,9 @@
         <hr>
         <div>
             <button @click="">Изменить</button>
-            <button @click="">Удалить</button>
-            <button @click="">Разместить готовую оценку</button>
-            <button @click="">Добавить новую</button>
+            <button @click="deleteAssessment()">Удалить</button>
+            <button @click="applyAssessment()">Разместить готовую оценку</button>
+            <button @click="createNewAssessment()">Добавить новую</button>
         </div>
         <table class="table table-striped table-hover">
             <thead>
@@ -87,6 +87,16 @@
 
                     }
                 }
+            },
+            applyAssessment(){
+                if (this.selected != 0){
+                    for (let i in this.selected){
+
+                    }
+                }
+            },
+            createNewAssessment(){
+                this.$router.push({name: 'create-assessment'})
             }
 
         }

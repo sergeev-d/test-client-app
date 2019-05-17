@@ -1,0 +1,71 @@
+<template>
+    <div class="wrapper">
+        <form-wizard
+                title="Создание новой оценки"
+                subtitle=""
+                nextButtonText="Далее"
+                backButtonText="Назад"
+                finishButtonText="Завершить"
+                stepSize="xs"
+                color="#354F5A"
+                shape=""
+                validate-on-back
+                ref="wizard"
+                :start-index.sync="activeTabIndex"
+                @on-complete="onComplete">
+            <tab-content title="Шаг 1">
+                <tab-first></tab-first>
+            </tab-content>
+            <tab-content title="Шаг 2">
+                <tab-second></tab-second>
+            </tab-content>
+            <tab-content title="Шаг 3">
+                <tab-third></tab-third>
+            </tab-content>
+        </form-wizard>
+    </div>
+</template>
+
+<script>
+    // https://binarcode.github.io/vue-form-wizard/#/?id=direct-script-include
+    import {FormWizard, TabContent} from 'vue-form-wizard'
+    import 'vue-form-wizard/dist/vue-form-wizard.min.css'
+    import TabFirst from '../components/TabFirst'
+    import TabSecond from '../components/TabSecond'
+    import TabThird from '../components/TabThird'
+
+    export default {
+        name: "AssessmentWizard.vue",
+        components: {
+            FormWizard,
+            TabContent,
+            TabFirst,
+            TabSecond,
+            TabThird
+        },
+        data() {
+            return {
+                finalModel: {},
+                activeTabIndex: 0
+            };
+        },
+        methods: {
+            onComplete() {
+                alert("Yay. Done!");
+            },
+            validate(ref) {
+                return this.$refs[ref].validate();
+            },
+            onStepValidate(validated, model) {
+                if (validated) {
+                    this.finalModel = { ...this.finalModel, ...model };
+                }
+            }
+        }
+    }
+
+</script>
+
+<style scoped>
+
+</style>

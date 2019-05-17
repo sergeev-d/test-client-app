@@ -63,6 +63,11 @@ export default new Router({
                     name: "expert-assessments",
                     path: "expert-assessments",
                     component: () => import("@/components/ExpertAssessments")
+                },
+                {
+                    name: "create-assessment",
+                    path: "create-assessment",
+                    component: () => import("@/components/AssessmentWizard")
                 }
             ]
         },
