@@ -15,3 +15,6 @@ export const CHECK_AUTH = "checkAuth";
 
 
 export const DOWNLOAD_FILE = "downloadFile";
+
+
+export const UPDATE_MODEL = "updateModel";

@@ -14,5 +14,9 @@ export const SET_USER = "user";
 export const SET_PROFILE = "setProfile";
 export const SET_PROFILE_ASSESSMENTS_RESULT = "setProfileAssessmentsResult";
 
+//create assessment model
+export const CHANGE_MODEL = "changeCreateAssessmentModel";
+export const CLEAR_MODEL = "clearCreateAssessmentModel";
+
 
 

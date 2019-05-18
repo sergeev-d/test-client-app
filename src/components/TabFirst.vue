@@ -1,5 +1,5 @@
 <template>
-    <div class="wrapper">
+    <!--<div class="wrapper">-->
         <form :model="model" :rules="rules" ref="form">
             <div>
                 <label type="text">Название</label>
@@ -26,10 +26,11 @@
                 </select>
             </div>
         </form>
-    </div>
+    <!--</div>-->
 </template>
 
 <script>
+
     export default {
         name: "TabFirst.vue",
         data(){
@@ -68,12 +69,10 @@
         methods: {
             validate() {
                 return new Promise((resolve, reject) => {
-                    this.$refs.form.validate((valid) => {
-                        this.$emit('on-validate', valid, this.model)
-                        resolve(valid);
-                    });
-                })
-
+                    var valid = true;
+                    this.$emit('on-validate', valid, this.model);
+                    resolve(valid);
+                });
             }
         },
         created() {

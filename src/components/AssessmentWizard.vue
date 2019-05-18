@@ -1,5 +1,5 @@
 <template>
-    <div class="wrapper">
+    <div class="col-md-9 sidebar">
         <form-wizard
                 title="Создание новой оценки"
                 subtitle=""
@@ -13,14 +13,14 @@
                 ref="wizard"
                 :start-index.sync="activeTabIndex"
                 @on-complete="onComplete">
-            <tab-content title="Шаг 1">
-                <tab-first></tab-first>
+            <tab-content title="Шаг 1" :before-change="() => validate('tab-first')">
+                <tab-first ref="tab-first" @on-validate="onStepValidate"></tab-first>
             </tab-content>
-            <tab-content title="Шаг 2">
-                <tab-second></tab-second>
+            <tab-content title="Шаг 2" :before-change="() => validate('tab-second')">
+                <tab-second ref="tab-second" @on-validate="onStepValidate"></tab-second>
             </tab-content>
-            <tab-content title="Шаг 3">
-                <tab-third></tab-third>
+            <tab-content title="Шаг 3" :before-change="() => validate('tab-third')">
+                <tab-third ref="tab-third" @on-validate="onStepValidate"></tab-third>
             </tab-content>
         </form-wizard>
     </div>
@@ -61,6 +61,7 @@
                     this.finalModel = { ...this.finalModel, ...model };
                 }
             }
+
         }
     }
 
