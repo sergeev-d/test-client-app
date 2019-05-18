@@ -3,9 +3,9 @@
         <h4><span>Список оценок</span></h4>
         <hr>
         <div>
-            <button @click="">Изменить</button>
-            <button @click="deleteAssessment()">Удалить</button>
-            <button @click="applyAssessment()">Разместить готовую оценку</button>
+            <button @click="changeAssessment(selected[0])">Изменить</button>
+            <button @click="deleteAssessment(selected[0])">Удалить</button>
+            <button @click="applyAssessment(selected[0])">Разместить готовую оценку</button>
             <button @click="createNewAssessment()">Добавить новую</button>
         </div>
         <table class="table table-striped table-hover">
@@ -13,7 +13,7 @@
             <tr>
                 <!--<th>-->
                     <!--<label class="form-checkbox">-->
-                        <!--<input type="checkbox" v-model="selectAll" @click="select">-->
+                        <!--<input type="checkbox" v-currentAssessment="selectAll" @click="select">-->
                         <!--<i class="form-icon"></i>-->
                     <!--</label>-->
                 <!--</th>-->
@@ -27,19 +27,19 @@
             </tr>
             </thead>
             <tbody>
-            <tr v-for="i in items">
+            <tr v-for="ua in userAssessments">
                 <td>
                     <label class="form-checkbox">
-                        <input type="checkbox" :value="i.id" v-model="selected">
+                        <input type="checkbox" :value="ua.id" v-model="selected">
                         <i class="form-icon"></i>
                     </label>
                 </td>
                 <!--<td>{{i.id}}</td>-->
-                <td>{{i.name}}</td>
-                <td>{{i.create_date}}</td>
-                <td>{{i.status}}</td>
-                <td>{{i.comment}}</td>
-                <td>{{i.execute_cnt}}</td>
+                <td>{{ua.name}}</td>
+                <td>{{ua.create_date}}</td>
+                <td>{{ua.status}}</td>
+                <td>{{ua.comment}}</td>
+                <td>{{ua.execute_cnt}}</td>
             </tr>
             </tbody>
         </table>
@@ -47,27 +47,12 @@
 </template>
 
 <script>
+    import { mapGetters } from "vuex"
+    import { FETCH_EXPERT_ASSESSMENTS } from "../store/actions.type"
+
     export default {
         name: "ExpertAssessments.vue",
         data: () => ({
-            items: [
-                {
-                    id: "1",
-                    name: "John Doe",
-                    create_date: "1412743274",
-                    status: "черновик",
-                    comment: false,
-                    execute_cnt: 0
-                },
-                {
-                    id: "2",
-                    name: "John Doe",
-                    create_date: "1412743274",
-                    status: "черновик",
-                    comment: false,
-                    execute_cnt: 0
-                }
-            ],
             selected: [],
             selectAll: false,
             error: ""
@@ -76,20 +61,22 @@
             select() {
                 this.selected = [];
                 if (!this.selectAll) {
-                    for (let i in this.items) {
-                        this.selected.push(this.items[i].id);
+                    for (let i in this.userAssessments) {
+                        this.selected.push(this.userAssessments[i]);
                     }
                 }
             },
-            deleteAssessment(){
-                if (this.selected != 0){
+            deleteAssessment(selectedAssessment){
+                alert(selectedAssessment);
+                if (this.selected !== 0){
                     for (let i in this.selected){
 
                     }
                 }
             },
-            applyAssessment(){
-                if (this.selected != 0){
+            applyAssessment(selectedAssessment){
+                alert(selectedAssessment);
+                if (this.selected !== 0){
                     for (let i in this.selected){
 
                     }
@@ -97,8 +84,18 @@
             },
             createNewAssessment(){
                 this.$router.push({name: 'create-assessment'})
+            },
+            changeAssessment(selectedAssessment){
+                alert(selectedAssessment);
+                this.$router.push({name: 'change-assessment'})
             }
 
+        },
+        computed:{
+            ...mapGetters(["userAssessments", "currentUser"])
+        },
+        mounted() {
+            this.$store.dispatch(FETCH_EXPERT_ASSESSMENTS)
         }
 
     }

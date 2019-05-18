@@ -6,7 +6,7 @@ export const FETCH_PROFILE_ORGANIZATIONS = "fetchProfileOrganizations";
 export const ADD_PROFILE_ORGANIZATIONS = "addProfileOrganization";
 export const SAVE_PROFILE_ORGANIZATIONS = "saveProfileOrganizations";
 export const FETCH_PROFILE_ASSESSMENTS_RESULT = "fetchProfileAssessmentsResult";
-export const FETCH_EXPERT_ASSESSMENTS = "fetchExpertAssessments";
+
 
 
 export const LOGIN = "login";
@@ -17,4 +17,8 @@ export const CHECK_AUTH = "checkAuth";
 export const DOWNLOAD_FILE = "downloadFile";
 
 
-export const UPDATE_MODEL = "updateModel";
+export const UPDATE_CURRENT_ASSESSMENT = "updateModel";
+export const ADD_ASSESSMENT = "addAssessment";
+export const CHANGE_ASSESSMENT = "changeAssessment";
+export const DELETE_ASSESSMENT = "deleteAssessment";
+export const FETCH_EXPERT_ASSESSMENTS = "fetchExpertAssessments";

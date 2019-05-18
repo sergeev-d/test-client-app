@@ -25,13 +25,13 @@
             </table>
         </div>
         <div class="wrapper">
-            <div v-for="(qb, index) in currentModel.questionBlocks" :value=qb.block :key="index">
+            <div v-for="(qb, index) in currentAssessment.questionBlocks" :value=qb.block :key="index">
                 <label type="text">{{qb.block.name}}</label>
                 <block-result :recommendations="qb.block.recommendations"></block-result>
             </div>
             <div>
                 <label type="text">{{"Глобальная рекомендация"}}</label>
-                <block-result :recommendations="currentModel.global_recommendations"></block-result>
+                <block-result :recommendations="currentAssessment.global_recommendations"></block-result>
             </div>
         </div>
     </div>
@@ -39,7 +39,7 @@
 
 <script>
     import BlockResult from "../components/BlockResult"
-    import { UPDATE_MODEL } from "../store/actions.type"
+    import { UPDATE_CURRENT_ASSESSMENT } from "../store/actions.type"
     import { mapGetters } from "vuex"
 
     export default {
@@ -47,25 +47,22 @@
         components: {
             BlockResult
         },
-        data () {
-            return {
-                // model: {
-                //     questionBlocks: []
-                // }
-            }
-        },
         methods:{
             validate() {
+                this.updateModel();
                 return new Promise((resolve, reject) => {
                     var valid = true;
-                    //this.$emit('on-validate', valid, this.model);
-                    this.$emit('on-validate', valid, this.currentModel);
+                    //this.$emit('on-validate', valid, this.currentAssessment);
+                    this.$emit('on-validate', valid, this.currentAssessment);
                     resolve(valid);
                 });
+            },
+            updateModel(){
+                this.$store.dispatch(UPDATE_CURRENT_ASSESSMENT, this.currentAssessment)
             }
         },
         computed:{
-            ...mapGetters(["currentModel"])
+            ...mapGetters(["currentAssessment"])
         }
     }
 </script>

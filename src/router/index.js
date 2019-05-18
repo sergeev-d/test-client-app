@@ -67,7 +67,8 @@ export default new Router({
                 {
                     name: "create-assessment",
                     path: "create-assessment",
-                    component: () => import("@/components/AssessmentWizard")
+                    component: () => import("@/components/AssessmentWizard2")
+                    // component: () => import("@/components/AssessmentWizard")
                 }
             ]
         },

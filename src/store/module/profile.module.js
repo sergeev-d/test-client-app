@@ -3,8 +3,7 @@ import { DownloadService } from "../../common/api.service";
 
 import {
     DOWNLOAD_FILE,
-    FETCH_CLIENT_PROFILE,
-    FETCH_EXPERT_PROFILE,
+    FETCH_USER_PROFILE,
     FETCH_PROFILE_ASSESSMENTS_RESULT,
     FETCH_EXPERT_ASSESSMENTS
 } from "../actions.type";
@@ -16,15 +15,14 @@ import { SET_ERROR,
 
 const state = {
     errors: null,
-    client_profile: {},
-    expert_profile: {},
+    user_profile: {},
     assessmentsResult: {},
     expertAssessments: {}
 };
 
 const getters = {
     getUserProfile(state){
-        return state.profile;
+        return state.user_profile;
     },
     getProfileAssessmentsResult(state){
         return state.assessmentsResult;
@@ -35,9 +33,9 @@ const getters = {
 };
 
 const actions = {
-    [FETCH_CLIENT_PROFILE](context, userId){
+    [FETCH_USER_PROFILE](context, userId){
         return new Promise(resolve => {
-            ApiService.query("client_profile", { userId })
+            ApiService.query("user_profile", { userId })
                 .then(({ data }) => {
                     context.commit(SET_PROFILE, data.profile);
                     resolve(data);
@@ -49,7 +47,7 @@ const actions = {
     },
     [FETCH_PROFILE_ASSESSMENTS_RESULT](context, userId){
         return new Promise(resolve => {
-            ApiService.query("client_profile/assessments_result", { userId })
+            ApiService.query("user_profile/assessments_result", { userId })
                 .then(({ data }) => {
                     context.commit(SET_PROFILE_ASSESSMENTS_RESULT, data.assessmentsResult);
                     resolve(data);

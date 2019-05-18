@@ -40,7 +40,7 @@
                     <!--class="form-control form-control-sm"-->
                     <!--:class="{'is-invalid': $v.confirmPassword.$error}"-->
                     <!--@blur="$v.confirmPassword.$touch()"-->
-                    <!--v-model="confirmPassword"-->
+                    <!--v-currentAssessment="confirmPassword"-->
                     <!--&gt;-->
                     <!--<div class="invalid-feedback" v-if="!$v.confirmPassword.sameAs">-->
                     <!--Password should be the same-->

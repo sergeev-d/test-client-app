@@ -1,17 +1,17 @@
 <template>
     <!--<div class="wrapper">-->
-        <form :model="currentModel" :rules="rules" ref="form">
+        <form :model="currentAssessment" :rules="rules" ref="form">
             <div>
                 <label type="text">Название</label>
-                <input v-model="currentModel.assessmentName"/>
+                <input v-model="currentAssessment.assessmentName"/>
             </div>
             <div>
                 <label type="text">Описание</label>
-                <textarea v-model="currentModel.description"></textarea>
+                <textarea v-model="currentAssessment.description"></textarea>
             </div>
             <div>
                 <label type="text">Отрасль</label>
-                <select v-model="currentModel.industry">
+                <select v-model="currentAssessment.industry">
                     <option v-for="industry in industries" :value="industry.name" :key="industry.id">
                         {{ industry.name }}
                     </option>
@@ -19,7 +19,7 @@
             </div>
             <div>
                 <label type="text">Страна</label>
-                <select v-model="currentModel.companyType">
+                <select v-model="currentAssessment.companyType">
                     <option v-for="country in companyTypes" :value="country" :key="country.id">
                         {{ country }}
                     </option>
@@ -30,7 +30,7 @@
 </template>
 
 <script>
-    import { UPDATE_MODEL } from "../store/actions.type"
+    import { UPDATE_CURRENT_ASSESSMENT } from "../store/actions.type"
     import { mapGetters } from "vuex"
 
     export default {
@@ -39,12 +39,6 @@
             return {
                 industries: [],
                 companyTypes:[],
-                // model: {
-                //     assessmentName: '',
-                //     description: '',
-                //     selectedIndustry:'',
-                //     selectedCountry:''
-                // },
                 rules: {
                     assessmentName: [{
                         required: true,
@@ -70,16 +64,16 @@
             }},
         methods: {
             validate() {
-                this.updateModel()
+                this.updateModel();
                 return new Promise((resolve, reject) => {
                     var valid = true;
-                    //this.$emit('on-validate', valid, this.model);
-                    this.$emit('on-validate', valid, this.currentModel);
+                    //this.$emit('on-validate', valid, this.currentAssessment);
+                    this.$emit('on-validate', valid, this.currentAssessment);
                     resolve(valid);
                 });
             },
             updateModel(){
-                this.$store.dispatch(UPDATE_MODEL, this.model)
+                this.$store.dispatch(UPDATE_CURRENT_ASSESSMENT, this.currentAssessment)
             }
         },
         created() {
@@ -87,7 +81,7 @@
             this.companyTypes = ['Россия', 'Англия', 'Франция'];
         },
         computed: {
-            ...mapGetters(["currentModel"])
+            ...mapGetters(["currentAssessment"])
         }
     }
 </script>

@@ -4,7 +4,7 @@ import Vuex from "vuex";
 import assessments from "./module/assessments.module"
 import auth from "./module/auth.module"
 import profile from "./module/profile.module"
-import create_assessment from "./module/create.assessment.module"
+import expert_assessment from "./module/expert.assessment.module"
 
 Vue.use(Vuex);
 
@@ -13,6 +13,6 @@ export default new Vuex.Store({
         assessments,
         auth,
         profile,
-        create_assessment
+        create_assessment: expert_assessment
     }
 });

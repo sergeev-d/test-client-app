@@ -2,8 +2,7 @@
     <div>
         <div v-for="(q, index) in questions" :value="q.description" :key="index">
             <div>
-                <label type="text">Вопрос</label>
-                <textarea v-model="q.value"></textarea>
+                <v-textarea label="Вопрос/Утверждение" v-model="q.value" required></v-textarea>
             </div>
             <div>
                 <button @click="deleteQuestionArea(index)">Удалить вопрос</button>

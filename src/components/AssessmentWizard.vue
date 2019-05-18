@@ -28,11 +28,12 @@
 
 <script>
     // https://binarcode.github.io/vue-form-wizard/#/?id=direct-script-include
-    import {FormWizard, TabContent} from 'vue-form-wizard'
+    import { FormWizard, TabContent } from 'vue-form-wizard'
     import 'vue-form-wizard/dist/vue-form-wizard.min.css'
     import TabFirst from '../components/TabFirst'
     import TabSecond from '../components/TabSecond'
     import TabThird from '../components/TabThird'
+    import { mapGetters } from "vuex"
 
     export default {
         name: "AssessmentWizard.vue",
@@ -45,23 +46,24 @@
         },
         data() {
             return {
-                //finalModel: {},
                 activeTabIndex: 0
             };
         },
         methods: {
             onComplete() {
-                alert("Yay. Done!");
+
             },
             validate(ref) {
                 return this.$refs[ref].validate();
             },
             onStepValidate(validated, model) {
                 // if (validated) {
-                //     this.finalModel = { ...this.finalModel, ...model };
+                //     this.finalModel = { ...this.finalModel, ...currentAssessment };
                 // }
             }
-
+        },
+        computed: {
+            ...mapGetters(["currentAssessment"])
         }
     }
 
