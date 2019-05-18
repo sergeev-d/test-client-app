@@ -1,26 +1,26 @@
 <template>
     <!--<div class="wrapper">-->
-        <form :model="model" :rules="rules" ref="form">
+        <form :model="currentModel" :rules="rules" ref="form">
             <div>
                 <label type="text">Название</label>
-                <input v-model="model.assessmentName"/>
+                <input v-model="currentModel.assessmentName"/>
             </div>
             <div>
                 <label type="text">Описание</label>
-                <textarea v-model="model.description"></textarea>
+                <textarea v-model="currentModel.description"></textarea>
             </div>
             <div>
                 <label type="text">Отрасль</label>
-                <select v-model="model.selectedIndustry">
-                    <option v-for="industry in industryList" :value="industry.name" :key="industry.id">
+                <select v-model="currentModel.industry">
+                    <option v-for="industry in industries" :value="industry.name" :key="industry.id">
                         {{ industry.name }}
                     </option>
                 </select>
             </div>
             <div>
                 <label type="text">Страна</label>
-                <select v-model="model.selectedCountry">
-                    <option v-for="country in countryList" :value="country" :key="country.id">
+                <select v-model="currentModel.companyType">
+                    <option v-for="country in companyTypes" :value="country" :key="country.id">
                         {{ country }}
                     </option>
                 </select>
@@ -30,19 +30,21 @@
 </template>
 
 <script>
+    import { UPDATE_MODEL } from "../store/actions.type"
+    import { mapGetters } from "vuex"
 
     export default {
         name: "TabFirst.vue",
         data(){
             return {
-                industryList: [],
-                countryList:[],
-                model: {
-                    assessmentName: '',
-                    description: '',
-                    selectedIndustry:'',
-                    selectedCountry:''
-                },
+                industries: [],
+                companyTypes:[],
+                // model: {
+                //     assessmentName: '',
+                //     description: '',
+                //     selectedIndustry:'',
+                //     selectedCountry:''
+                // },
                 rules: {
                     assessmentName: [{
                         required: true,
@@ -68,16 +70,24 @@
             }},
         methods: {
             validate() {
+                this.updateModel()
                 return new Promise((resolve, reject) => {
                     var valid = true;
-                    this.$emit('on-validate', valid, this.model);
+                    //this.$emit('on-validate', valid, this.model);
+                    this.$emit('on-validate', valid, this.currentModel);
                     resolve(valid);
                 });
+            },
+            updateModel(){
+                this.$store.dispatch(UPDATE_MODEL, this.model)
             }
         },
         created() {
-            this.industryList = [{"id":1, "name":"Computer Science"},{"id":2,"name":"Physics"}];
-            this.countryList = ['Россия', 'Англия', 'Франция'];
+            this.industries = [{"id":1, "name":"Computer Science"},{"id":2,"name":"Physics"}];
+            this.companyTypes = ['Россия', 'Англия', 'Франция'];
+        },
+        computed: {
+            ...mapGetters(["currentModel"])
         }
     }
 </script>

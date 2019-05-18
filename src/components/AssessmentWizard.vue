@@ -8,7 +8,7 @@
                 finishButtonText="Завершить"
                 stepSize="xs"
                 color="#354F5A"
-                shape=""
+                shape="tab"
                 validate-on-back
                 ref="wizard"
                 :start-index.sync="activeTabIndex"
@@ -45,7 +45,7 @@
         },
         data() {
             return {
-                finalModel: {},
+                //finalModel: {},
                 activeTabIndex: 0
             };
         },
@@ -57,9 +57,9 @@
                 return this.$refs[ref].validate();
             },
             onStepValidate(validated, model) {
-                if (validated) {
-                    this.finalModel = { ...this.finalModel, ...model };
-                }
+                // if (validated) {
+                //     this.finalModel = { ...this.finalModel, ...model };
+                // }
             }
 
         }

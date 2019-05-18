@@ -3,12 +3,42 @@ import {CHANGE_MODEL, CLEAR_MODEL } from "../mutations.type";
 import { UPDATE_MODEL } from "../actions.type"
 
 const state = {
-    finalModel: {}
+    model: {
+        assessmentName: '',
+        description: '',
+        industry:'',
+        strategy: '',
+        status: '',
+        companyType: '',
+        questionBlocks: [
+            {
+                block :
+                    {
+                        name:'',
+                        questions: [],
+                        recommendations: [
+                            {
+                                minValue:'',
+                                maxValue:'',
+                                description:''
+                            }
+                        ]
+                    },
+            }
+        ],
+        global_recommendations: [
+            {
+                minValue:'',
+                maxValue:'',
+                description:''
+            }
+        ]
+    }
 };
 
 const getters = {
-    model(state){
-        return state.finalModel;
+    currentModel(state){
+        return state.model;
     }
 };
 
@@ -20,7 +50,7 @@ const actions = {
 
 const mutations = {
     [ CHANGE_MODEL ](state, model){
-        state.finalModel = { ...state.finalModel, ...model };
+        state.model = { ...state.model, ...model };
     },
     [ CLEAR_MODEL ](state){
         state.model = {}

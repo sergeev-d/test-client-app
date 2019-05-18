@@ -1,19 +1,19 @@
 <template>
-    <div class="wrapper">
+    <div class="wrapper" ref="form">
         <!--<form ref="form">-->
             <div>
                 <label type="text"><span>Редактор блоков вопросов / утверждений</span></label>
             </div>
             <div>
                 <label type="text">Варианты ответов для блоков</label>
-                <select v-model="model.selectedStrategy">
+                <select v-model="currentModel.strategy">
                     <option v-for="strategy in strategies" :value="strategy.value" :key="strategy.id">
                         {{ strategy.value }}
                     </option>
                 </select>
             </div>
             <div class="wrapper">
-                <div v-for="(qb, index) in this.model.questionBlocks" :value=qb.block :key="index" style="border: 1px black solid">
+                <div v-for="(qb, index) in currentModel.questionBlocks" :value=qb.block :key="index" style="border: 1px black solid">
                     <label type="text">Название блока</label>
                     <input v-model="qb.block.name"/>
                     <question-block :questions="qb.block.questions"></question-block>
@@ -29,16 +29,18 @@
 
 <script>
     import QuestionBlock from "../components/QuestionBlock"
+    import { UPDATE_MODEL } from "../store/actions.type"
+    import { mapGetters } from "vuex"
 
     export default {
         name: "TabSecond.vue",
         data () {
             return {
                 strategies: [],
-                model: {
-                    selectedStrategy: '',
-                    questionBlocks: []
-                }
+                // model: {
+                //     selectedStrategy: '',
+                //     questionBlocks: []
+                // }
             }
         },
         mounted() {
@@ -63,20 +65,38 @@
         },
         methods: {
             addBlock(){
-                this.model.questionBlocks.push({block: {name:"", questions: []}})
+                this.currentModel.questionBlocks.push(
+                    {
+                        block: {
+                            name:"",
+                            questions:[],
+                            recommendations:[]
+                        },
+                        global_recommendations:[]
+                    }
+                    )
             },
             deleteBlock(index){
-                if (this.model.questionBlocks.length !== 1){
-                    this.model.questionBlocks.splice(index,1)
+                if (this.currentModel.questionBlocks.length !== 1){
+                    this.currentModel.questionBlocks.splice(index,1)
                 }
             },
             validate() {
+                this.updateModel();
                 return new Promise((resolve, reject) => {
                     var valid = true;
-                    this.$emit('on-validate', valid, this.model);
+                    //this.$emit('on-validate', valid, this.model);
+                    this.$emit('on-validate', valid, this.currentModel);
                     resolve(valid);
                 });
+            },
+            updateModel(){
+                //this.$store.dispatch(UPDATE_MODEL, this.model)
+                this.$store.dispatch(UPDATE_MODEL, this.currentModel)
             }
+        },
+        computed:{
+            ...mapGetters(["currentModel"])
         }
     }
 </script>
