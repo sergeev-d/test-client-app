@@ -3,7 +3,7 @@ import {
     CHANGE_CURRENT_ASSESSMENT,
     CLEAR_CURRENT_ASSESSMENT,
     SET_ERROR,
-    FETCH_ASESSMENTS
+    FETCH_ASSESSMENTS
 } from "../mutations.type";
 import {
     UPDATE_CURRENT_ASSESSMENT,
@@ -14,14 +14,15 @@ import {
 } from "../actions.type"
 
 const state = {
-    currentAssessment: {
-        id: '',
-        assessmentName: '',
+    templateAssessment:{
+        name: '',
         description: '',
-        industry:'',
-        strategy: '',
         status: '',
-        companyType: '',
+        comment: '',
+        companyTypeId: '',
+        industryId: '',
+        userId: '',
+        strategy: '',
         questionBlocks: [
             {
                 block :
@@ -46,6 +47,7 @@ const state = {
             }
         ]
     },
+    currentAssessment: {},
     userAssessments: []
 };
 
@@ -53,21 +55,51 @@ const getters = {
     currentAssessment(state){
         return state.currentAssessment;
     },
-    getUserAssessment(state){
+    userAssessments(state){
         return state.userAssessments;
+    },
+    templateAssessment(state){
+        return state.templateAssessment;
     }
 };
 
 const actions = {
-    [UPDATE_CURRENT_ASSESSMENT](state, currentAssessment) {
-        state.commit(CHANGE_CURRENT_ASSESSMENT, currentAssessment);
+    [UPDATE_CURRENT_ASSESSMENT](state, assessment) {
+        state.commit(CHANGE_CURRENT_ASSESSMENT, assessment);
     },
-    [ADD_ASSESSMENT](state, {userId, assessment}){
+    [ADD_ASSESSMENT](state, assessment){
         return new Promise(resolve => {
-            ApiService.post("/assessments",{ userId, assessment})
+            ApiService.post("/assessments", assessment)
                 .then(({ data }) => {
-                    state.commit(); // add id
+                    assessment.id = data.id;
+                    //state.commit(CHANGE_CURRENT_ASSESSMENT, assessment);
+                    // add new assessment to state
                     state.commit(CLEAR_CURRENT_ASSESSMENT);
+                    resolve(data)
+                })
+                .catch(({ response }) => {
+                    state.commit(SET_ERROR, response)
+                })
+        })
+    },
+    [CHANGE_ASSESSMENT](state, {userId, assessment}){
+        ApiService.post("/assessments", assessment)
+            .then(({ data }) => {
+                assessment.id = data.id;
+                state.commit(CHANGE_CURRENT_ASSESSMENT, assessment);
+                // add new assessment to state
+                state.commit(CLEAR_CURRENT_ASSESSMENT);
+                resolve(data)
+            })
+            .catch(({ response }) => {
+                state.commit(SET_ERROR, response)
+            })
+    },
+    [DELETE_ASSESSMENT](state, assessmentId){
+        return new Promise(resolve => {
+            ApiService.delete("/assessments", assessmentId)
+                .then(({ data }) => {
+                    //state.commit(FETCH_ASSESSMENTS, data.assessments);
                     resolve(data)
                 })
                 .catch(({ response }) => {
@@ -75,17 +107,11 @@ const actions = {
                 })
         })
     },
-    [CHANGE_ASSESSMENT](state, {userId, assessment}){
-
-    },
-    [DELETE_ASSESSMENT](state, {userId, assessmentId}){
-
-    },
     [FETCH_EXPERT_ASSESSMENTS](state){
         return new Promise(resolve => {
-            ApiService.query("/assessments")
+            ApiService.query("/user_assessments")
                 .then(({ data }) => {
-                    state.commit(FETCH_ASESSMENTS, data); // add id
+                    state.commit(FETCH_ASSESSMENTS, data.assessments); // add id
                     resolve(data)
                 })
                 .catch(({ response }) => {
@@ -96,16 +122,15 @@ const actions = {
 };
 
 const mutations = {
-    [ CHANGE_CURRENT_ASSESSMENT ](state, currentAssessment){
-        state.currentAssessment = { ...state.currentAssessment, ...currentAssessment };
+    [ CHANGE_CURRENT_ASSESSMENT ](state, assessment){
+        state.currentAssessment = assessment;
     },
     [ CLEAR_CURRENT_ASSESSMENT ](state){
         state.currentAssessment = {}
     },
-    [ FETCH_ASESSMENTS ](state, {userAssessments}){
+    [ FETCH_ASSESSMENTS ](state, userAssessments){
         state.userAssessments = userAssessments
     }
-
 };
 
 export default {

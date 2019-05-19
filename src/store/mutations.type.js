@@ -17,7 +17,7 @@ export const SET_PROFILE_ASSESSMENTS_RESULT = "setProfileAssessmentsResult";
 //create assessment currentAssessment
 export const CHANGE_CURRENT_ASSESSMENT = "changeCreateAssessmentModel";
 export const CLEAR_CURRENT_ASSESSMENT = "clearCreateAssessmentModel";
-export const FETCH_ASESSMENTS = "fetchAssessments";
+export const FETCH_ASSESSMENTS = "fetchAssessments";
 
 
 

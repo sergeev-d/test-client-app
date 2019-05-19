@@ -65,11 +65,6 @@ const actions = {
             });
         });
     },
-    [FETCH_EXPERT_ASSESSMENTS](context, userId){
-        return new Promise(resolve => {
-           ApiService.query("profile/")
-        });
-    }
 };
 
 const mutations = {

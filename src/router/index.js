@@ -62,11 +62,19 @@ export default new Router({
                 {
                     name: "expert-assessments",
                     path: "expert-assessments",
-                    component: () => import("@/components/ExpertAssessments")
+                    component: () => import("@/components/ExpertAssessments2")
+                    // component: () => import("@/components/ExpertAssessments")
+
                 },
                 {
                     name: "create-assessment",
                     path: "create-assessment",
+                    component: () => import("@/components/AssessmentWizard2")
+                    // component: () => import("@/components/AssessmentWizard")
+                },
+                {
+                    name: "change-assessment",
+                    path: "change-assessment",
                     component: () => import("@/components/AssessmentWizard2")
                     // component: () => import("@/components/AssessmentWizard")
                 }

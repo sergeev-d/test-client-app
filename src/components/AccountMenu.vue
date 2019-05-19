@@ -1,5 +1,5 @@
 <template>
-    <div class="col-md-3 sidebar">
+    <div class="col-md-2 sidebar">
         <ul v-if="isCustomer(currentUser.type)">
             <li>
                 <router-link
@@ -17,13 +17,13 @@
             </li>
         </ul>
         <ul v-else>
-            <li>
-                <router-link
-                        :to="{ name:'expert-main' }"
-                >
-                    <a>Главная</a>
-                </router-link>
-            </li>
+            <!--<li>-->
+                <!--<router-link-->
+                        <!--:to="{ name:'expert-main' }"-->
+                <!--&gt;-->
+                    <!--<a>Главная</a>-->
+                <!--</router-link>-->
+            <!--</li>-->
             <li>
                 <router-link
                         :to="{ name:'expert-info' }"
@@ -63,4 +63,21 @@
     @import '../../public/style.css';
     @import '../../public/media.css';
     @import '../../public/fonts.css';
+
+    .sidebar {
+        box-shadow: 0 0 20px #E4E4E4;
+        margin-top: 24px;
+        padding-top: 24px;
+    }
+
+    li {
+        list-style: none;
+    }
+
+    a {
+        display: block;
+        color: #999999;
+        font-size: 14px;
+        margin-bottom: 10px;
+    }
 </style>

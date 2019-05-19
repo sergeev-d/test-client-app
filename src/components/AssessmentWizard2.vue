@@ -1,7 +1,6 @@
 <template>
     <v-app class="col-md-9 sidebar">
     <v-content>
-
         <v-container>
             <v-stepper v-model="step" vertical>
                 <v-stepper-header>
@@ -13,10 +12,10 @@
                 </v-stepper-header>
                 <v-stepper-items>
                     <v-stepper-content step="1">
-                        <v-text-field label="Название оценки" v-model="currentAssessment.assessmentName" required></v-text-field>
+                        <v-text-field label="Название оценки" v-model="currentAssessment.name" required></v-text-field>
                         <v-textarea label="Описание" v-model="currentAssessment.description" required></v-textarea>
                         <v-select label="Тип компании"
-                                  v-model="currentAssessment.companyType"
+                                  v-model="currentAssessment.companyTypeId"
                                   item-text="name"
                                   item-value="id"
                                   :items="companyTypes"
@@ -24,7 +23,7 @@
                                   required
                         ></v-select>
                         <v-select label="Отрасль"
-                                  v-model="currentAssessment.industry"
+                                  v-model="currentAssessment.industryId"
                                   :items="industries"
                                   item-text="name"
                                   item-value="id"
@@ -49,13 +48,13 @@
                                       required
                             ></v-select>
                         </div>
-                        <div v-for="(qb, index) in currentAssessment.questionBlocks" :value=qb.block :key="index" style="border: 1px black solid">
+                        <div v-for="(qb, index) in currentAssessment.questionBlocks" :value=qb.block :key="index">
                             <v-text-field label="Название блока" v-model="qb.block.name" required></v-text-field>
                             <question-block :questions="qb.block.questions"></question-block>
-                            <button @click="deleteBlock(index)">Удалить блок</button>
+                            <v-btn flat color="error" @click="deleteBlock(index)">Удалить блок</v-btn>
                         </div>
                         <div class="wrapper">
-                            <button @click="addBlock()">Добавить блок</button>
+                            <v-btn large @click="addBlock()">Добавить блок</v-btn>
                         </div>
 
                         <v-btn flat @click.native="step = 1">Назад</v-btn>
@@ -90,12 +89,12 @@
                         <div>
                             <div v-for="(qb, index) in currentAssessment.questionBlocks" :value=qb.block :key="index">
                                 <label type="text">{{qb.block.name}}</label>
-                                <block-result :recommendations="qb.block.recommendations"></block-result>
+                                <block-result :recommendations="checkRecommendation(qb.block.recommendations)"></block-result>
                             </div>
-                            <div>
-                                <label type="text">{{"Глобальная рекомендация"}}</label>
-                                <block-result :recommendations="currentAssessment.global_recommendations"></block-result>
-                            </div>
+                        </div>
+                        <div>
+                            <label type="text">{{"Глобальная рекомендация"}}</label>
+                            <!--<block-result :recommendations="currentAssessment.global_recommendations"></block-result>-->
                         </div>
 
                         <v-btn flat @click.native="step = 2">Назад</v-btn>
@@ -104,33 +103,57 @@
                     </v-stepper-content>
                 </v-stepper-items>
             </v-stepper>
-
         </v-container>
-
     </v-content>
     </v-app>
 </template>
 
 <script>
     import { mapGetters } from "vuex"
+    import { ADD_ASSESSMENT, CHANGE_ASSESSMENT } from "../store/actions.type"
     import QuestionBlock from '../components/QuestionBlock'
     import BlockResult from '../components/BlockResult'
 
     export default {
         name: "AssessmentWizard2",
+
+        components:{
+            QuestionBlock,
+            BlockResult
+        },
         computed: {
             ...mapGetters(["currentAssessment"])
         },
         data: () => ({
             step:1,
-            //industries: [],
             industries: [],
             companyTypes: [],
             strategies: []
         }),
         methods:{
+            checkRecommendation(currentRecommendation){
+                if (currentRecommendation){
+                    return currentRecommendation
+                } else {
+                    return [];
+                }
+            },
             submit() {
-                alert('This is the post. Blah');
+                this.currentAssessment.status = 'new';
+                if (this.currentAssessment.id){
+                    this.$store.dispatch(CHANGE_ASSESSMENT, this.currentAssessment)
+                        .then(() =>
+                            this.$router.push({name: "expert-assessments"})
+                        )
+                        .catch(() => alert("Что-то пошло не так"))
+                } else {
+                    this.$store.dispatch(ADD_ASSESSMENT, this.currentAssessment)
+                        .then(() =>
+                            this.$router.push({name: "expert-assessments"})
+                        )
+                        .catch(() => alert("Что-то пошло не так"))
+                }
+
             },
             addBlock(){
                 this.currentAssessment.questionBlocks.push(
@@ -139,8 +162,7 @@
                             name:"",
                             questions:[],
                             recommendations:[]
-                        },
-                        global_recommendations:[]
+                        }
                     }
                 )
             },
@@ -163,10 +185,6 @@
                 {id: "1", name: "да/нет/не знаю"},
                 {id: "2", name: "да/нет/не знаю2"}
             ];
-        },
-        components:{
-            QuestionBlock,
-            BlockResult
         }
     }
 </script>

@@ -1,6 +1,7 @@
 <template>
-    <div class="wrapper" style="border: 1px black solid">
+    <v-container>
         <div v-for="(r, index) in recommendations" :value="r.description" :key="index">
+        <!--<div v-for="(r, index) in currentAssessment.questionBlocks[blockId].recommendations" :value="r.description" :key="index">-->
             <div>
                 <input placeholder="нижняя граница" v-model="r.minValue"/>
                 <input placeholder="верхняя граница" v-model="r.maxValue"/>
@@ -11,17 +12,19 @@
             </div>
         </div>
         <button @click="addRecommendation()">Добавить диапазон</button>
-    </div>
+    </v-container>
 </template>
 
 <script>
+    import { mapGetters } from "vuex"
+
     export default {
         name: "BlockResult.vue",
         props: {
             recommendations:{
                 required: true,
                 type: Array,
-                default:[]
+                default: []
             }
         },
         methods: {
@@ -32,7 +35,10 @@
             deleteRecommendation(index){
                 this.$props.recommendations.splice(index, 1)
             }
-        }
+        },
+        computed: {
+            ...mapGetters(["currentAssessment"])
+        },
     }
 </script>
 

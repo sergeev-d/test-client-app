@@ -28,6 +28,15 @@ const ApiService = {
             .catch(error => {
                     throw new Error(`ApiService ${error}`);
         });
+    },
+    delete(resource, params){
+        ApiService.setHeader();
+        return Vue.axios.delete(resource, {
+            params: {assessmentId : params}
+        })
+            .catch(error => {
+                throw new Error(`ApiService ${error}`);
+        });
     }
 };
 
