@@ -37,10 +37,10 @@
                                                 tag="div"
                                                 class="nav-item"
                                                 active-class="active"
-                                                :to="{ name: 'results'}"
+                                                :to="{ name: 'client-results'}"
 
                                         >
-                                            <a class="nav-link">{{ currentUser.name }}</a>
+                                            <a class="nav-link">{{ currentUser.username }}</a>
                                         </router-link>
                                     </div>
                                     <div v-else-if="currentUser.username && isExpert(currentUser.type)">

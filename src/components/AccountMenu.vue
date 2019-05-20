@@ -10,9 +10,16 @@
             </li>
             <li>
                 <router-link
-                        :to="{ name:'results' }"
+                        :to="{ name:'client-results' }"
                 >
                     <a><i class="fas fa-flag-checkered"></i> Результаты</a>
+                </router-link>
+            </li>
+            <li>
+                <router-link
+                        :to="{ name:'client-assessments' }"
+                >
+                    <a><i class="fas fa-flag-checkered"></i> Оценки</a>
                 </router-link>
             </li>
         </ul>

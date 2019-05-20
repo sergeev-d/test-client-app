@@ -24,11 +24,11 @@ const getters = {
 };
 
 const actions = {
-    [FETCH_ASSESSMENTS]({ commit }, params) {
-        commit(FETCH_START);
-        return AssessmentService.query(params.filters)
+    [FETCH_ASSESSMENTS](state, params) {
+        state.commit(FETCH_START);
+        return AssessmentService.query() //params.filters
             .then(({ data }) => {
-                commit(FETCH_END, data);
+                state.commit(FETCH_END, data);
             })
             .catch(error => {
                 throw new Error(error);

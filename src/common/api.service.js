@@ -37,6 +37,13 @@ const ApiService = {
             .catch(error => {
                 throw new Error(`ApiService ${error}`);
         });
+    },
+    update(resource, params){
+        ApiService.setHeader();
+        return Vue.axios.patch(resource, params)
+            .catch(error => {
+                throw new Error(`ApiService ${error}`);
+            });
     }
 };
 

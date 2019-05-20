@@ -5,7 +5,7 @@ export const SAVE_PROFILE = "saveProfile";
 export const FETCH_PROFILE_ORGANIZATIONS = "fetchProfileOrganizations";
 export const ADD_PROFILE_ORGANIZATIONS = "addProfileOrganization";
 export const SAVE_PROFILE_ORGANIZATIONS = "saveProfileOrganizations";
-export const FETCH_PROFILE_ASSESSMENTS_RESULT = "fetchProfileAssessmentsResult";
+export const FETCH_USER_ASSESSMENTS_RESULT = "fetchUserAssessmentsResult";
 
 
 

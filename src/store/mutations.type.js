@@ -12,7 +12,7 @@ export const SET_USER = "user";
 
 //profile
 export const SET_PROFILE = "setProfile";
-export const SET_PROFILE_ASSESSMENTS_RESULT = "setProfileAssessmentsResult";
+export const SET_USER_ASSESSMENTS_RESULT = "setUserAssessmentsResult";
 
 //create assessment currentAssessment
 export const CHANGE_CURRENT_ASSESSMENT = "changeCreateAssessmentModel";

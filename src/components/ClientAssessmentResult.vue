@@ -1,51 +1,67 @@
-<template>
-    <div class="col-md-9 main-content">
-        <div class="table">
-            <table>
-                <thead>
-                <tr>
-                    <!--<th v-for="column in columns" v-bind:key="column.id">{{ column.name }}</th>-->
-                    <th>Название</th>
-                    <th>Дата создания</th>
-                    <th>Статус</th>
-                    <th>Результат</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr v-for="entry in results" v-bind:key="entry.id">
-                    <td v-for="column in columns" v-bind:key="column.id">
-                        <span v-if="column.id === 'create_date'">{{ "test" }}</span>
-                        <!--https://codepen.io/nigamshirish/pen/ZMpvRa-->
-                        <button v-else-if="column.id === 'link' && entry[column.id].length > 0" @click.prevent="downloadFile(entry[column.id])">Посмотреть</button>
-                        <span v-else>{{ entry[column.id]}}</span>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
+<template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
+    <div class="col-md-10 main-content">
+        <v-app>
+            <v-toolbar flat color="white">
+                <v-spacer></v-spacer>
+            </v-toolbar>
+            <v-data-table
+                    :headers="headers"
+                    :items="results"
+                    class="elevation-1"
+            >
+                <template v-slot:items="props">
+                    <td>{{ props.item.name }}</td>
+                    <td class="text-xs-left">{{ props.item.createdDate }}</td>
+                    <td class="text-xs-left">{{ props.item.status }}</td>
+                    <td class="text-xs-left"><v-btn v-if="props.item.link.length > 0" @click="downloadFile(props.item.link.length)" >Результат</v-btn></td>
+                </template>
+                <template v-slot:no-data>
+                    <v-btn color="primary" @click="fetchData">Reset</v-btn>
+                </template>
+            </v-data-table>
+        </v-app>
     </div>
 </template>
 
 
 <script>
     import { mapGetters } from "vuex"
-    import { DOWNLOAD_FILE } from "../store/actions.type"
+    import {
+        FETCH_USER_ASSESSMENTS_RESULT,
+        DOWNLOAD_FILE
+    } from "../store/actions.type"
 
     export default {
         name: "ClientAssessmentResult",
         data () {
             return {
-                columns:[
-                    {"id":"name", "name":"Название"},
-                    {"id":"create_date", "name":"Дата создания"},
-                    {"id":"status", "name":"Статус"},
-                    {"id":"link", "name":"Результат"}
+                headers: [
+                    {
+                        text: 'Название оценки',
+                        align: 'left',
+                        sortable: true,
+                        value: 'name'
+                    },
+                    {
+                        text: 'Дата создания',
+                        align: 'left',
+                        value: 'createdDate'
+                    },
+                    {
+                        text: 'Статус',
+                        value: 'status',
+                        align: 'left',
+                    },
+                    {
+                        text: 'Результат',
+                        value: 'link',
+                        align: 'left',
+                    }
                 ],
-
                 results:[
-                    {"id":1, "name":"assessment1", "create_date":"1412743274", "status":"in_progress", "link":""},
-                    {"id":2, "name":"assessment2", "create_date":"1412743274", "status":"completed", "link":""},
-                    {"id":3, "name":"assessment3", "create_date":"1412743274", "status":"completed", "link":"HCsqqeRy5lo.jpg"}
+                    {"id":1, "name":"assessment1", "createdDate":"1412743274", "status":"in_progress", "link":""},
+                    {"id":2, "name":"assessment2", "createdDate":"1412743274", "status":"completed", "link":""},
+                    {"id":3, "name":"assessment3", "createdDate":"1412743274", "status":"completed", "link":"HCsqqeRy5lo.jpg"}
                 ]
             }
         },
@@ -58,6 +74,9 @@
             ...mapGetters(["assessmentsResult"])
         },
         methods: {
+            fetchData(){
+                this.$store.dispatch(FETCH_USER_ASSESSMENTS_RESULT)
+            },
             downloadFile(link){
                 this.$store.dispatch(DOWNLOAD_FILE, link)
                     .then((response) => {
@@ -67,7 +86,6 @@
 
             },
             forceFileDownload(response, fileName){
-                 debugger
                 const url = window.URL.createObjectURL(new Blob([response]));
                 const link = document.createElement('a');
                 link.href = url;
@@ -98,8 +116,10 @@
                 // document.body.removeChild(tempLink);
                 // window.URL.revokeObjectURL(blobURL);
             }
+        },
+        mounted() {
+            this.fetchData();
         }
-
     }
 </script>
 

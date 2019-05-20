@@ -1,41 +1,28 @@
 import ApiService from "@/common/api.service";
-import { DownloadService } from "../../common/api.service";
 
 import {
-    DOWNLOAD_FILE,
-    FETCH_USER_PROFILE,
-    FETCH_PROFILE_ASSESSMENTS_RESULT,
-    FETCH_EXPERT_ASSESSMENTS
+    FETCH_USER_PROFILE
 } from "../actions.type";
 
 import { SET_ERROR,
-    SET_PROFILE,
-    SET_PROFILE_ASSESSMENTS_RESULT
+    SET_PROFILE
 } from "../mutations.type";
 
 const state = {
     errors: null,
-    user_profile: {},
-    assessmentsResult: {},
-    expertAssessments: {}
+    userProfile: {}
 };
 
 const getters = {
-    getUserProfile(state){
-        return state.user_profile;
-    },
-    getProfileAssessmentsResult(state){
-        return state.assessmentsResult;
-    },
-    getExpertAssessments(state){
-        return state.expertAssessments;
+    userProfile(state){
+        return state.userProfile;
     }
 };
 
 const actions = {
-    [FETCH_USER_PROFILE](context, userId){
+    [FETCH_USER_PROFILE](context){
         return new Promise(resolve => {
-            ApiService.query("user_profile", { userId })
+            ApiService.query("profiles")
                 .then(({ data }) => {
                     context.commit(SET_PROFILE, data.profile);
                     resolve(data);
@@ -44,27 +31,7 @@ const actions = {
                     context.commit(SET_ERROR, response.data.errors);
                 });
         });
-    },
-    [FETCH_PROFILE_ASSESSMENTS_RESULT](context, userId){
-        return new Promise(resolve => {
-            ApiService.query("user_profile/assessments_result", { userId })
-                .then(({ data }) => {
-                    context.commit(SET_PROFILE_ASSESSMENTS_RESULT, data.assessmentsResult);
-                    resolve(data);
-                })
-                .catch(({ response }) => {
-                    context.commit(SET_ERROR, response.data.errors);
-                });
-        });
-    },
-    [DOWNLOAD_FILE](context, link){
-        return new Promise(resolve => {
-            DownloadService.get(link)
-                .then(({data}) => {
-                    resolve(data);
-            });
-        });
-    },
+    }
 };
 
 const mutations = {
@@ -72,10 +39,7 @@ const mutations = {
         state.errors = error;
     },
     [SET_PROFILE](state, profile) {
-        state.profile = profile;
-    },
-    [SET_PROFILE_ASSESSMENTS_RESULT](state, assessmentsResult) {
-        state.assessmentsResult = assessmentsResult;
+        state.userProfile = profile;
     }
 };
 

@@ -62,20 +62,18 @@
                 { text: 'Статус', value: 'status' },
                 { text: 'Комментарий', value: 'comment' },
                 { text: 'Количество', value: 'execCnt', sortable: false }
-            ],
-            desserts: [],
-            editedIndex: -1
+            ]
         }),
         computed: {
             ...mapGetters(["userAssessments", "currentUser", "templateAssessment"])
         },
         mounted () {
-            this.$store.dispatch(FETCH_EXPERT_ASSESSMENTS)
+            this.fetchData()
         },
 
         methods: {
             fetchData(){
-
+                this.$store.dispatch(FETCH_EXPERT_ASSESSMENTS)
             },
             deleteAssessment(selectedAssessment){
                 if (selectedAssessment){
@@ -116,16 +114,6 @@
             unixTimeToDate(unixTime){
                 let t = new Date( unixTime );
                 return t;
-            },
-            editItem (item) {
-                this.editedIndex = this.desserts.indexOf(item)
-                this.editedItem = Object.assign({}, item)
-                this.dialog = true
-            },
-
-            deleteItem (item) {
-                const index = this.desserts.indexOf(item)
-                confirm('Are you sure you want to delete this item?') && this.desserts.splice(index, 1)
             }
         }
     }

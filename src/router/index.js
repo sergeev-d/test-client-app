@@ -35,12 +35,22 @@ export default new Router({
                 {
                     path: 'client-info',
                     name: 'client-info',
-                    component: () => import("@/components/ClientInfo")
+                    component: () => import("@/components/UserInfo")
                 },
                 {
-                    name: 'results',
-                    path: 'results',
+                    name: 'client-results',
+                    path: 'client-results',
                     component: () => import("@/components/ClientAssessmentResult")
+                },
+                {
+                    name: 'client-assessments',
+                    path: 'client-assessments',
+                    component: () => import("@/components/ClientAssessments")
+                },
+                {
+                    path: 'perform-assessment',
+                    name: 'perform-assessment',
+                    component: () => import("@/components/AssessmentProcess")
                 }
             ]
         },
@@ -57,7 +67,7 @@ export default new Router({
                 {
                     path: "expert-info",
                     name: "expert-info",
-                    component: () => import("@/components/ExpertInfo")
+                    component: () => import("@/components/UserInfo")
                 },
                 {
                     name: "expert-assessments",

@@ -82,12 +82,9 @@ const actions = {
                 })
         })
     },
-    [CHANGE_ASSESSMENT](state, {userId, assessment}){
-        ApiService.post("/assessments", assessment)
+    [CHANGE_ASSESSMENT](state, assessment){
+        ApiService.update("/assessments", assessment)
             .then(({ data }) => {
-                assessment.id = data.id;
-                state.commit(CHANGE_CURRENT_ASSESSMENT, assessment);
-                // add new assessment to state
                 state.commit(CLEAR_CURRENT_ASSESSMENT);
                 resolve(data)
             })
