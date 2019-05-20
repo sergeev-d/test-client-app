@@ -2,7 +2,6 @@ package com.assessments.portal.web.controllers;
 
 import com.assessments.portal.common.results.ApiResult;
 import com.assessments.portal.common.results.GetUserResult;
-import com.assessments.portal.common.results.LoginResult;
 import com.assessments.portal.common.security.TokenManager;
 import com.assessments.portal.web.domain.user.User;
 import com.assessments.portal.web.services.UserService;
@@ -31,7 +30,8 @@ public class UserApiController {
         String authHeader = headers.get("authorization");
 
         if (authHeader != null && !authHeader.isEmpty()){
-            Long userId = tokenManager.verifyJwt(authHeader.split("\\s")[1]);
+            String token = authHeader.split("\\s")[1].trim();
+            Long userId = tokenManager.verifyJwt(token);
             User user = userService.findById(userId);
             return GetUserResult.build(user);
         } else {

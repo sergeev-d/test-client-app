@@ -27,8 +27,8 @@ public class LoginController {
     public @ResponseBody() ResponseEntity<ApiResult> login(@RequestBody Login login){
         User user = userService.findByEmail(login.getEmail());
         if (user.getPassword().equals(login.getPassword())){
-            return LoginResult
-                    .build(user, tokenManager.jwt(user.getId()));
+            String token = tokenManager.jwt(user.getId());
+            return LoginResult.build(user, token);
         } else {
             return ResponseEntity
                     .status(HttpStatus.UNAUTHORIZED)

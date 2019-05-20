@@ -42,6 +42,6 @@ public class TokenManager {
             .parseClaimsJws(jws)
             .getBody()
             .getSubject();
-    return Long.getLong(userIdValue);
+    return Long.valueOf(userIdValue);
   }
 }
