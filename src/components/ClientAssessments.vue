@@ -91,7 +91,7 @@
             executeAssessment(selectedAssessment){
                 this.$store.dispatch(UPDATE_CURRENT_ASSESSMENT, selectedAssessment)
                     .then(() => {
-                        this.$router.push({name: 'perform-assessment'})
+                        this.$router.push({name: "perform-assessment"})
                     })
             }
         },

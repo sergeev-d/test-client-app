@@ -50,7 +50,7 @@ export default new Router({
                 {
                     path: 'perform-assessment',
                     name: 'perform-assessment',
-                    component: () => import("@/components/AssessmentProcess")
+                    component: () => import("@/components/AssessmentProcessor2")
                 }
             ]
         },
