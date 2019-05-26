@@ -51,7 +51,7 @@
                         value: 'name'
                     },
                     {
-                        text: 'Описаник',
+                        text: 'Описание',
                         align: 'left',
                         value: 'description'
                     },

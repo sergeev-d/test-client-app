@@ -36,15 +36,15 @@
 
                 </v-stepper-items>
                 <v-layout v-if="step === 1">
-                    <v-btn color="primary" flat @click="next()">Next</v-btn>
+                    <v-btn color="primary" flat @click="next()">Продолжить</v-btn>
                 </v-layout>
                 <v-layout v-else-if="step > 1 & step < getSteps()">
-                    <v-btn color="primary" flat @click="next()">Next</v-btn>
-                    <v-btn color="primary" flat @click="prev()">Prev</v-btn>
+                    <v-btn color="primary" flat @click="next()">Продолжить</v-btn>
+                    <v-btn color="primary" flat @click="prev()">Вернуться</v-btn>
                 </v-layout>
                 <v-layout v-else>
-                    <v-btn color="primary" flat @click="prev()">Prev</v-btn>
-                    <v-btn color="primary" @click="finish()">Finish</v-btn>
+                    <v-btn color="primary" flat @click="prev()">Вернуться</v-btn>
+                    <v-btn color="primary" @click="finish()">Закончить</v-btn>
                 </v-layout>
             </v-stepper>
 
@@ -61,14 +61,14 @@
             return {
                 el: 1,
                 step: 1,
-                userResponses: [[],[]]
+                userResponses: []
             }
         },
         components:{
             QuizTable
         },
         computed: {
-            ...mapGetters(["currentAssessment"])
+            ...mapGetters(["currentAssessment"]),
 
         },
         methods: {
@@ -83,6 +83,9 @@
                 this.step--
             },
             finish () {
+                console.info(this.userResponses);
+
+
                 this.$router.push( { name:"client-assessments" })
             },
             getBlock(id){
@@ -94,6 +97,17 @@
                 } else {
                     alert("incorrect index")
                 }
+            },
+            createEmptyQuiz(){
+                let empty = [];
+                for (let i in this.currentAssessment.questionBlocks){
+                    console.info(i)
+                    // for (let j in this.currentAssessment.questionBlocks[i].block.questions.length){
+                    //     empty[i-1][j-1] = 0
+                    // }
+                }
+
+                return empty;
             }
         },
         // ,

@@ -1,52 +1,26 @@
 <template>
     <v-app class="col-md-9 sidebar">
         <div>
-            <!--<v-stepper v-model="el">-->
-                <!--<v-stepper-header>-->
-                    <!--<template>-->
-                        <!--<v-text-field label="Описание:" :value="currentAssessment.description" :readonly=true required></v-text-field>-->
-                    <!--</template>-->
-                <!--</v-stepper-header>-->
-
-                <!--<v-stepper-items>-->
-                    <!--<v-stepper-content vertical :step="step">-->
-                        <!--<div>-->
-                            <!--<v-text-field label="Блок" :value="getBlock(step).name" :readonly=true required></v-text-field>-->
-                        <!--</div>-->
-                        <!--<form action="">-->
-                            <!--<quiz-table :questions="getBlock(step).questions" :blockId="step" :responses="userResponses"></quiz-table>-->
-                        <!--</form>-->
-                    <!--</v-stepper-content>-->
-                <!--</v-stepper-items>-->
-            <!--</v-stepper>-->
-            <!--<v-layout v-if="step === 1">-->
-                <!--<v-btn color="primary" flat @click="next()">Next</v-btn>-->
-            <!--</v-layout>-->
-            <!--<v-layout v-else-if="step > 1 & step < getSteps()">-->
-                <!--<v-btn color="primary" flat @click="next()">Next</v-btn>-->
-                <!--<v-btn color="primary" flat @click="prev()">Prev</v-btn>-->
-            <!--</v-layout>-->
-            <!--<v-layout v-else>-->
-                <!--<v-btn color="primary" flat @click="prev()">Prev</v-btn>-->
-                <!--<v-btn color="primary" @click="finish()">Finish</v-btn>-->
-            <!--</v-layout>-->
-
-
             <div v-for="(item, index) in currentAssessment.questionBlocks" :key="index">
-                <div v-show="index === 1">
-                    <quiz-table :questions="getBlock(step).questions" :blockId="step" :responses="userResponses"></quiz-table>
+                <div v-if=" step === index">
+                    <v-text-field label="Блок" :value="item.block.name" :readonly=true required></v-text-field>
+                    <quiz-table :questions="item.block.questions"
+                                :blockId="step"
+                                :responses="responses"
+                    >
+                    </quiz-table>
                 </div>
             </div>
-            <v-layout v-if="step === 1">
-            <v-btn color="primary" flat @click="next()">Next</v-btn>
+            <v-layout v-if="step === 0">
+                <v-btn color="primary" flat @click="next()">Next</v-btn>
             </v-layout>
-            <v-layout v-else-if="step > 1 & step < getSteps()">
-            <v-btn color="primary" flat @click="next()">Next</v-btn>
-            <v-btn color="primary" flat @click="prev()">Prev</v-btn>
+            <v-layout v-else-if="step > 0 & step < getSteps()">
+                <v-btn color="primary" flat @click="prev()">Prev</v-btn>
+                <v-btn color="primary" flat @click="next()">Next</v-btn>
             </v-layout>
             <v-layout v-else>
-            <v-btn color="primary" flat @click="prev()">Prev</v-btn>
-            <v-btn color="primary" @click="finish()">Finish</v-btn>
+                <v-btn color="primary" flat @click="prev()">Prev</v-btn>
+                <v-btn color="primary" @click="finish()">Finish</v-btn>
             </v-layout>
         </div>
     </v-app>
@@ -55,24 +29,27 @@
 <script>
     import { mapGetters } from "vuex"
     import QuizTable from "@/components/QuizTable"
+    import { SAVE_USER_ASSESSMENT_RESULT} from "../store/actions.type";
+
     export default {
         name: "AssessmentProcessor2",
         data () {
             return {
                 el: 1,
-                step: 1,
-                userResponses: [[],[]]
+                step: 0,
+                responses : []
             }
         },
         components:{
             QuizTable
         },
         computed: {
-            ...mapGetters(["currentAssessment"])
+            ...mapGetters(["currentAssessment"]),
+
         },
         methods: {
             getSteps(){
-                return this.currentAssessment.questionBlocks.length
+                return this.currentAssessment.questionBlocks.length - 1;
             },
             next() {
                 this.step++;
@@ -82,17 +59,63 @@
                 this.step--;
             },
             finish() {
-                this.$router.push( { name:"client-assessments" });
-            },
-            getBlock(id){
-                if (id >= 1){
-                    let arrId = id - 1;
-                    return this.currentAssessment.questionBlocks[arrId].block
-                } else if (id === 0){
-                    return this.currentAssessment.questionBlocks[id].block.name
-                } else {
-                    alert("incorrect index")
+                let blockValue = 25; // should be accessible from assessment, by default 25
+                let choiceStrategy = 5; // strategy from settings or assessment , by default 5 choices
+                let labels = [];
+                let resultBlockData = [];
+                let questionsLength = 0;
+                let recommendation = '';
+                for (let item in this.currentAssessment.questionBlocks) {
+                    questionsLength = this.currentAssessment.questionBlocks[item].block.questions.length;
+                    labels.push(this.currentAssessment.questionBlocks[item].block.name);
+                    // sumData.push(this.responses[item].reduce(reducer,0))
+                    resultBlockData.push(this.responses[item].reduce((accumulator, currentValue) => {
+                        return accumulator + currentValue * blockValue/(questionsLength*choiceStrategy)
+                    },0))
                 }
+                for (let rec in this.currentAssessment.global_recommendations){
+                    let sumAssessment = resultBlockData.reduce((accumulator, currentValue) => {
+                        return accumulator + currentValue
+                    },0);
+                    let currRec = this.currentAssessment.global_recommendations[rec];
+                    if (sumAssessment > currRec.minValue && sumAssessment <= currRec.maxValue) {
+                        recommendation = currRec.description;
+                    }
+                }
+
+                let assessmentResult = {
+                    "assessmentName": this.currentAssessment.name,
+                    "blocks" : labels,
+                    "resultBlockData": resultBlockData,
+                    "recommendation": recommendation,
+                    "createDate": "",
+
+                };
+                this.$store.dispatch(SAVE_USER_ASSESSMENT_RESULT, assessmentResult)
+                    .then(() => {
+                        this.$router.push( { name:"client-assessments" });
+                    })
+                    .catch(() => {
+                        alert("Что-то пошло не так...")
+                    })
+
+            },
+            createEmptyQuiz(){
+                let empty = [];
+                let i = 0;
+                let j = 0;
+                let nested = [];
+                let currentBlocks = this.currentAssessment.questionBlocks;
+                for (i in currentBlocks) {
+                    let currentBlock = this.currentAssessment.questionBlocks[i].block;
+                    for (j in currentBlock.questions){
+                        nested.push(3)
+                    }
+                    empty.push(nested);
+                    nested = [];
+                    j=0;
+                }
+                return empty;
             }
         },
         // ,
@@ -100,6 +123,9 @@
             if (!this.currentAssessment.name) {
                 this.$router.push( { name:"client-assessments" } )
             }
+        },
+        created() {
+            this.responses = this.createEmptyQuiz()
         }
     }
 </script>

@@ -6,19 +6,60 @@
             </v-toolbar>
             <v-data-table
                     :headers="headers"
-                    :items="results"
+                    :items="assessmentsResult"
                     class="elevation-1"
             >
                 <template v-slot:items="props">
-                    <td>{{ props.item.name }}</td>
-                    <td class="text-xs-left">{{ props.item.createdDate }}</td>
-                    <td class="text-xs-left">{{ props.item.status }}</td>
-                    <td class="text-xs-left"><v-btn v-if="props.item.link.length > 0" @click="downloadFile(props.item.link.length)" >Результат</v-btn></td>
+                    <td>{{ props.item.assessmentName }}</td>
+                    <td class="text-xs-left">{{ props.item.createDate }}</td>
+                    <td class="text-xs-left"><v-btn @click="showResult(props.item)" >Результат</v-btn></td>
                 </template>
                 <template v-slot:no-data>
                     <v-btn color="primary" @click="fetchData">Reset</v-btn>
                 </template>
             </v-data-table>
+            <v-dialog
+                    v-model="dialog"
+                    width="1200"
+
+            >
+                <v-card>
+                    <v-card-title
+                            class="headline grey lighten-2"
+                            primary-title
+                    >
+                        Результаты оценки
+                    </v-card-title>
+                    <v-card-text width="600" height="400">
+                        <canvas id="marksChart" width="600" height="400"></canvas>
+                    </v-card-text>
+                    <!--<v-divider></v-divider>-->
+                    <v-spacer></v-spacer>
+                    <v-card-text>
+                        <h5>Рекомендация:</h5>
+                        <v-spacer></v-spacer>
+                        {{ item.recommendation }}
+                    </v-card-text>
+                    <!--<v-divider></v-divider>-->
+                    <v-spacer></v-spacer>
+                    <v-card-actions>
+                        <v-spacer></v-spacer>
+                        <v-btn
+                                color="primary"
+                                flat
+                                @click="dialog = false"
+                        >
+                            Закрыть
+                        </v-btn>
+                        <v-btn
+                                color="primary"
+                                flat
+                        >
+                            Сохранить
+                        </v-btn>
+                    </v-card-actions>
+                </v-card>
+            </v-dialog>
         </v-app>
     </div>
 </template>
@@ -30,11 +71,17 @@
         FETCH_USER_ASSESSMENTS_RESULT,
         DOWNLOAD_FILE
     } from "../store/actions.type"
+    import Chart from 'chart.js';
+    import ResultWithRecommendation from "@/components/ResultWithRecommendation"
 
     export default {
         name: "ClientAssessmentResult",
+        components: {
+            ResultWithRecommendation
+        },
         data () {
             return {
+                dialog: false,
                 headers: [
                     {
                         text: 'Название оценки',
@@ -48,21 +95,12 @@
                         value: 'createdDate'
                     },
                     {
-                        text: 'Статус',
-                        value: 'status',
-                        align: 'left',
-                    },
-                    {
                         text: 'Результат',
                         value: 'link',
                         align: 'left',
                     }
                 ],
-                results:[
-                    {"id":1, "name":"assessment1", "createdDate":"1412743274", "status":"in_progress", "link":""},
-                    {"id":2, "name":"assessment2", "createdDate":"1412743274", "status":"completed", "link":""},
-                    {"id":3, "name":"assessment3", "createdDate":"1412743274", "status":"completed", "link":"HCsqqeRy5lo.jpg"}
-                ]
+                item:{}
             }
         },
         filters: {
@@ -76,6 +114,29 @@
         methods: {
             fetchData(){
                 this.$store.dispatch(FETCH_USER_ASSESSMENTS_RESULT)
+            },
+            showResult(assessmentResult){
+                this.item = assessmentResult;
+                let marksCanvas = document.getElementById("marksChart");
+
+                let marksData = {
+                    labels: assessmentResult.blocks,
+                    datasets: [
+                        {
+                            label: "Распределение",
+                            backgroundColor: "rgba(200,0,0,0.2)",
+                            data: assessmentResult.resultBlockData
+                        }
+                    ]
+                };
+
+
+                let radarChart = new Chart(marksCanvas, {
+                    type: 'radar',
+                    data: marksData
+                });
+
+                this.dialog = true;
             },
             downloadFile(link){
                 this.$store.dispatch(DOWNLOAD_FILE, link)

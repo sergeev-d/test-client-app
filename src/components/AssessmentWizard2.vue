@@ -73,16 +73,16 @@
                                     <th>{{"Минимально возможное количество баллов в блоке"}}</th>
                                 </tr>
                                 <tr>
-                                    <td><span>{{1}}</span></td>
-                                    <td><span>{{2}}</span></td>
+                                    <td><span>{{ minBlockValue }}</span></td>
+                                    <td><span>{{ maxBlockValue }}</span></td>
                                 </tr>
                                 <tr>
                                     <th>{{"Минимально возможное количество баллов общее"}}</th>
                                     <th>{{"Минимально возможное количество баллов в блоке"}}</th>
                                 </tr>
                                 <tr>
-                                    <td><span>{{3}}</span></td>
-                                    <td><span>{{4}}</span></td>
+                                    <td><span>{{ calcMinValue() }}</span></td>
+                                    <td><span>{{ calcMaxValue() }}</span></td>
                                 </tr>
                             </table>
                         </div>
@@ -93,8 +93,8 @@
                             </div>
                         </div>
                         <div>
-                            <label type="text">{{"Глобальная рекомендация"}}</label>
-                            <!--<block-result :recommendations="currentAssessment.global_recommendations"></block-result>-->
+                            <h4 type="text">{{"Глобальная рекомендация"}}</h4>
+                            <block-result :recommendations="currentAssessment.global_recommendations"></block-result>
                         </div>
 
                         <v-btn flat @click.native="step = 2">Назад</v-btn>
@@ -128,7 +128,9 @@
             step:1,
             industries: [],
             companyTypes: [],
-            strategies: []
+            strategies: [],
+            minBlockValue: 5,
+            maxBlockValue: 25
         }),
         methods:{
             checkRecommendation(currentRecommendation){
@@ -170,6 +172,12 @@
                 if (this.currentAssessment.questionBlocks.length !== 1){
                     this.currentAssessment.questionBlocks.splice(index,1)
                 }
+            },
+            calcMinValue(){
+                return this.minBlockValue * this.currentAssessment.questionBlocks.length
+            },
+            calcMaxValue(){
+                return this.maxBlockValue * this.currentAssessment.questionBlocks.length
             }
         },
         mounted() {

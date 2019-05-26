@@ -1,18 +1,20 @@
 <template>
-    <v-container>
+    <v-app>
+    <!--<v-container>-->
         <div v-for="(r, index) in recommendations" :value="r.description" :key="index">
         <!--<div v-for="(r, index) in currentAssessment.questionBlocks[blockId].recommendations" :value="r.description" :key="index">-->
             <div>
-                <input placeholder="нижняя граница" v-model="r.minValue"/>
-                <input placeholder="верхняя граница" v-model="r.maxValue"/>
-                <input placeholder="рекомендация" v-model="r.description"/>
+                <v-text-field type="number" placeholder="нижняя граница" v-model="r.minValue"/>
+                <v-text-field type="number" placeholder="верхняя граница" v-model="r.maxValue"/>
+                <v-textarea placeholder="рекомендация" v-model="r.description" style="width: auto"/>
             </div>
             <div>
-                <button @click="deleteRecommendation(index)">Удалить диапазон</button>
+                <v-btn flat @click="deleteRecommendation(index)">Удалить диапазон</v-btn>
             </div>
         </div>
-        <button @click="addRecommendation()">Добавить диапазон</button>
-    </v-container>
+        <v-btn @click="addRecommendation()">Добавить диапазон</v-btn>
+    <!--</v-container>-->
+    </v-app>
 </template>
 
 <script>

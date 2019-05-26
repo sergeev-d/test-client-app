@@ -3,7 +3,8 @@ import { DownloadService } from "../../common/api.service";
 
 import {
     DOWNLOAD_FILE,
-    FETCH_USER_ASSESSMENTS_RESULT
+    FETCH_USER_ASSESSMENTS_RESULT,
+    SAVE_USER_ASSESSMENT_RESULT
 } from "../actions.type";
 
 import {
@@ -13,7 +14,7 @@ import {
 
 const state = {
     errors: null,
-    assessmentsResult:{}
+    assessmentsResult:[]
 };
 
 const getters = {
@@ -43,6 +44,17 @@ const actions = {
                 });
         });
     },
+    [SAVE_USER_ASSESSMENT_RESULT](context, result){
+        return new Promise(resolve => {
+            ApiService.post("assessments-result", result)
+                .then(({ data }) => {
+                    resolve(data);
+                })
+                .catch(({ response }) => {
+                    context.commit(SET_ERROR, response.data.errors);
+                });
+        });
+    }
 };
 
 const mutations = {

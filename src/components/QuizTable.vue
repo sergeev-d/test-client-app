@@ -1,30 +1,50 @@
 <template>
     <div>
-            <tr>
-                <th/>
-                <th>Полностью несогласен</th>
-                <th>Несогласен</th>
-                <th>Нейтрально</th>
-                <th>Согласен</th>
-                <th>Полностью согласен</th>
-            </tr>
-            <tr v-for="(q, index) in questions"
-                :key="q.id"
-                :name="`${blockId}-${index}`">
-                <td>{{ q.value }}</td>
-                <td v-for="choiceValue in choiceCnt">
-                    <input type="radio"
-                           :checked=false
-                           :name="`${blockId}-${index}`"
-                           @input="setValue(blockId-1, index, choiceValue)"
-                           :id="`${blockId}-${index}`"
-                           :key="`${blockId}-${index}`"
-                    />
-                           <!--v-model="responses[blockId-1][index]"-->
-                    <!--:name="`${blockId}-${index}`"-->
+            <!--<v-app>-->
+            <!--<tr>-->
+                <!--<th/>-->
+                <!--<th>Полностью несогласен</th>-->
+                <!--<th>Несогласен</th>-->
+                <!--<th>Нейтрально</th>-->
+                <!--<th>Согласен</th>-->
+                <!--<th>Полностью согласен</th>-->
+            <!--</tr>-->
+            <!--<tr v-for="(q, index) in questions"-->
+                <!--:key="q.id"-->
+                <!--:name="`${blockId}-${index}`">-->
+                <!--<td>{{ q.value }}</td>-->
+                <!--<td v-for="choiceValue in choiceCnt" v-model="responses[blockId][index]">-->
+                    <!--<input type="radio"-->
+                           <!--:name="`${blockId}-${index}`"-->
+                           <!--:id="`${blockId}-${index}`"-->
+                           <!--:key="`${blockId}-${index}`"-->
+                    <!--/>-->
+                    <!--&lt;!&ndash;:checked=false&ndash;&gt;-->
+                    <!--&lt;!&ndash;@input="setValue(blockId, index, choiceValue)"&ndash;&gt;-->
 
-                </td>
-            </tr>
+                <!--</td>-->
+            <!--</tr>-->
+                <div v-for="(q, index) in questions" :key="q.id">
+                    <v-input :value="q.value"
+                             :readonly=true
+                    >
+                        {{q.value}}
+                    </v-input>
+                    <v-radio-group
+                        row
+                        :name="`${blockId}-${q.id}`"
+                        v-model="responses[blockId][index]"
+                    >
+                        <v-radio v-for="choiceValue in choiceCnt"
+                                 :key="choiceValue.point"
+                                 :value="choiceValue.point"
+                                 :label="choiceValue.value"
+                        ></v-radio>
+                        <!--* 25/(questions.length*5)-->
+                    </v-radio-group>
+                </div>
+
+            <!--</v-app>-->
     </div>
 </template>
 
@@ -46,33 +66,21 @@
             },
             responses: {
                 type: Array
-            },
-            realValue:{
-                type: Number,
-                default(){
-                    return 1
-                }
-            },
-            value:{
-                type: Number,
-                default(){
-                    return 2
-                }
             }
 
         },
         data () {
             return {
-                choiceCnt : 5
+                choiceCnt : [
+                    {"point":1, value:"Полностью несогласен"},
+                    {"point":2, value:"Несогласен"},
+                    {"point":3, value:"Нейтрально"},
+                    {"point":4, value:"Согласен"},
+                    {"point":5, value:"Полностью согласен"}
+                ]
+                // choiceCnt: 5
             }
-        },
-        methods:{
-            setValue(blockId, questionId, value){
-                this.responses[blockId][questionId] = value
-            }
-
         }
-
     }
 </script>
 

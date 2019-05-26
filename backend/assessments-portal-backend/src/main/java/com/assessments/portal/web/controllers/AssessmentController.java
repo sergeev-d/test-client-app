@@ -3,6 +3,7 @@ package com.assessments.portal.web.controllers;
 import com.assessments.portal.common.results.ApiResult;
 import com.assessments.portal.common.security.TokenManager;
 import com.assessments.portal.web.domain.assessment.Assessment;
+import com.assessments.portal.web.domain.assessment.AssessmentResult;
 import com.assessments.portal.web.services.AssessmentService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -58,8 +59,8 @@ public class AssessmentController {
                     .status(HttpStatus.UNAUTHORIZED)
                     .body(ApiResult.error("user not found", "401"));
         }
-
     }
+
 
     @DeleteMapping("/assessments")
     private ResponseEntity<ApiResult> deleteAssessment(@RequestHeader Map<String, String> headers,
@@ -87,6 +88,22 @@ public class AssessmentController {
             return ResponseEntity.ok(
                     ApiResult.blank()
                             .add("assessmentsResult", assessmentService.getAssessmentsResult(userId)));
+        } else {
+            return ResponseEntity
+                    .status(HttpStatus.UNAUTHORIZED)
+                    .body(ApiResult.error("user not found", "401"));
+        }
+    }
+
+    @PostMapping("/assessments-result")
+    private ResponseEntity<ApiResult> saveUserAssessmentResult(@RequestHeader Map<String, String> headers,
+                                                               @RequestBody AssessmentResult result){
+        String authHeader = headers.get("authorization");
+
+        if (authHeader != null && !authHeader.isEmpty()){
+            Long userId = tokenManager.verifyJwt(authHeader.split("\\s")[1]);
+            assessmentService.addAssessmentResult(userId, result);
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
         } else {
             return ResponseEntity
                     .status(HttpStatus.UNAUTHORIZED)

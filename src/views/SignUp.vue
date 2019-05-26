@@ -5,12 +5,8 @@
 </template>
 
 <script>
-    import StepProgressBar from "@/components/StepProgressBar"
     export default {
-        name: "SignUp.vue"//,
-        // components: {
-        //     StepProgressBar
-        // }
+        name: "SignUp.vue"
     }
 </script>
 

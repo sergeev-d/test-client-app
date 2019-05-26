@@ -22,3 +22,5 @@ export const ADD_ASSESSMENT = "addAssessment";
 export const CHANGE_ASSESSMENT = "changeAssessment";
 export const DELETE_ASSESSMENT = "deleteAssessment";
 export const FETCH_EXPERT_ASSESSMENTS = "fetchExpertAssessments";
+
+export const SAVE_USER_ASSESSMENT_RESULT = "saveUserAssessmentResult";

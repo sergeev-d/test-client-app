@@ -11,5 +11,6 @@ public interface AssessmentService {
     Long addAssessment(Assessment assessment, Long userId);
     void deleteAssessment(Long id);
     void updateAssessment(Assessment assessment);
+    void addAssessmentResult(Long userId, AssessmentResult result);
     List<AssessmentResult> getAssessmentsResult(Long userId);
 }
