@@ -9,13 +9,15 @@
                     :headers="headers"
                     :items="userAssessments"
                     class="elevation-1"
+                    rows-per-page-text="строк на страницу"
             >
                 <template v-slot:items="props">
                     <td>{{ props.item.name }}</td>
-                    <td class="text-xs-right">{{ props.item.createdDate }}</td>
-                    <td class="text-xs-right">{{ props.item.status }}</td>
-                    <td class="text-xs-right">{{ props.item.comment }}</td>
-                    <td class="text-xs-right">{{ props.item.execCnt }}</td>
+                    <td class="text-xs">{{ "10.06.2019" }}</td>
+                    <td class="text-xs">{{ props.item.status }}</td>
+                    <td class="text-xs">{{ props.item.comment }}</td>
+                    <td class="text-xs">{{ 0 }}</td>
+                    <!--<td class="text-xs-right">{{ props.item.execCnt }}</td>-->
                     <td class="justify-center layout px-0">
                         <v-icon
                                 small
@@ -58,10 +60,10 @@
                     sortable: true,
                     value: 'name'
                 },
-                { text: 'Дата изменения', value: 'createdDate' },
+                { text: 'Дата создания', value: 'createdDate' },
                 { text: 'Статус', value: 'status' },
                 { text: 'Комментарий', value: 'comment' },
-                { text: 'Количество', value: 'execCnt', sortable: false }
+                { text: 'Количество прохождений', value: 'execCnt', sortable: false }
             ]
         }),
         computed: {

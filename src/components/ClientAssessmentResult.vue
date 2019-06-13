@@ -8,10 +8,12 @@
                     :headers="headers"
                     :items="assessmentsResult"
                     class="elevation-1"
+                    rows-per-page-text="строк на страницу"
             >
                 <template v-slot:items="props">
                     <td>{{ props.item.assessmentName }}</td>
-                    <td class="text-xs-left">{{ props.item.createDate }}</td>
+                    <!--<td class="text-xs-left">{{ props.item.createDate }}</td>-->
+                    <td class="text-xs-left">{{ "10.06.2019" }}</td>
                     <td class="text-xs-left"><v-btn @click="showResult(props.item)" >Результат</v-btn></td>
                 </template>
                 <template v-slot:no-data>
@@ -90,7 +92,7 @@
                         value: 'name'
                     },
                     {
-                        text: 'Дата создания',
+                        text: 'Дата прохождения',
                         align: 'left',
                         value: 'createdDate'
                     },

@@ -21,74 +21,74 @@
 
         </div>
         <div class="wrapper">
-            <div class="row">
-                <div class="col-md-12">
-                    <h4>Оценки</h4>
-                    <hr>
-                    Фильтры
-                    <div class="row">
-                        <div class="col-md-3">
-                            <div id="list" class="wrapper-dropdown">Типы организации
-                                <ul class="dropdown">
-                                    <li><input type="radio" id="el-1" name="el-1" value="donut"><label for="el-1">Все</label></li>
-                                    <li><input type="radio" id="el-1" name="el-1" value="donut"><label for="el-1">Коммерческая</label></li>
-                                    <li><input type="radio" id="el-2" name="el-2" value="neighbour"><label for="el-2">Некоммерческая</label></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div id="list" class="wrapper-dropdown">Авторство
-                                <ul class="dropdown">
-                                    <li><input type="radio" id="el-1" name="el-1" value="donut"><label for="el-1">JВсе</label></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div id="list" class="wrapper-dropdown">Отрасли
-                                <ul class="dropdown">
-                                    <li><input type="radio" id="el-1" name="el-1" value="donut"><label for="el-1">Все</label></li>
-                                    <li><input type="radio" id="el-2" name="el-2" value="neighbour"><label for="el-2">Аэрокосмическая</label></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div id="list" class="wrapper-dropdown">Области оценивания
-                                <ul class="dropdown">
-                                    <li><input type="radio" id="el-1" name="el-1" value="donut"><label for="el-1">Все</label></li>
-                                    <li><input type="radio" id="el-2" name="el-2" value="neighbour"><label for="el-2">Некоммерческая</label></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12 assessment-item">
-                            <div class="row">
-                                <div class="col-md-9">
-                                    <h5>Оценка эффективности бизнеса по методике JURAN</h5>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo. Proin sodales pulvinar tempor. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nam fermentum, nulla luctus pharetra vulputate, felis tellus mollis orci, sed rhoncus sapien nunc eget.</p>
-                                    <ul>
-                                        <li>Стратегическое планирование и развитие</li>
-                                        <li>Управление качеством</li>
-                                        <li>Организация контороля и анализа</li>
-                                        <li>Вовлеченность персонала и корпоративная культура</li>
-                                        <li>Взаимодействие с контрагентами</li>
-                                        <li>Итоговые показатели</li>
-                                    </ul>
-                                </div>
-                                <div class="col-md-3 a-prop">
-                                    <button class="btn-blue">Перейти к оценке</button>
-                                    <button class="btn-gray">Пример отчета</button>
-                                    <br>
-                                    <span>Тип организации:</span> Любой <br>
-                                    <span>Отрасль:</span> Любая <br>
-                                    <span>Авторство:</span> Juran
-                                </div>
-                            </div>
+            <!--<div class="row">-->
+                <!--<div class="col-md-12">-->
+                    <!--<h4>Оценки</h4>-->
+                    <!--<hr>-->
+                    <!--Фильтры-->
+                    <!--<div class="row">-->
+                        <!--<div class="col-md-3">-->
+                            <!--<div id="list" class="wrapper-dropdown">Типы организации-->
+                                <!--<ul class="dropdown">-->
+                                    <!--<li><input type="radio" id="el-1" name="el-1" value="donut"><label for="el-1">Все</label></li>-->
+                                    <!--<li><input type="radio" id="el-1" name="el-1" value="donut"><label for="el-1">Коммерческая</label></li>-->
+                                    <!--<li><input type="radio" id="el-2" name="el-2" value="neighbour"><label for="el-2">Некоммерческая</label></li>-->
+                                <!--</ul>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                        <!--<div class="col-md-3">-->
+                            <!--<div id="list" class="wrapper-dropdown">Авторство-->
+                                <!--<ul class="dropdown">-->
+                                    <!--<li><input type="radio" id="el-1" name="el-1" value="donut"><label for="el-1">JВсе</label></li>-->
+                                <!--</ul>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                        <!--<div class="col-md-3">-->
+                            <!--<div id="list" class="wrapper-dropdown">Отрасли-->
+                                <!--<ul class="dropdown">-->
+                                    <!--<li><input type="radio" id="el-1" name="el-1" value="donut"><label for="el-1">Все</label></li>-->
+                                    <!--<li><input type="radio" id="el-2" name="el-2" value="neighbour"><label for="el-2">Аэрокосмическая</label></li>-->
+                                <!--</ul>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                        <!--<div class="col-md-3">-->
+                            <!--<div id="list" class="wrapper-dropdown">Области оценивания-->
+                                <!--<ul class="dropdown">-->
+                                    <!--<li><input type="radio" id="el-1" name="el-1" value="donut"><label for="el-1">Все</label></li>-->
+                                    <!--<li><input type="radio" id="el-2" name="el-2" value="neighbour"><label for="el-2">Некоммерческая</label></li>-->
+                                <!--</ul>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                    <!--<div class="row">-->
+                        <!--<div class="col-md-12 assessment-item">-->
+                            <!--<div class="row">-->
+                                <!--<div class="col-md-9">-->
+                                    <!--<h5>Оценка эффективности бизнеса по методике JURAN</h5>-->
+                                    <!--<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo. Proin sodales pulvinar tempor. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nam fermentum, nulla luctus pharetra vulputate, felis tellus mollis orci, sed rhoncus sapien nunc eget.</p>-->
+                                    <!--<ul>-->
+                                        <!--<li>Стратегическое планирование и развитие</li>-->
+                                        <!--<li>Управление качеством</li>-->
+                                        <!--<li>Организация контороля и анализа</li>-->
+                                        <!--<li>Вовлеченность персонала и корпоративная культура</li>-->
+                                        <!--<li>Взаимодействие с контрагентами</li>-->
+                                        <!--<li>Итоговые показатели</li>-->
+                                    <!--</ul>-->
+                                <!--</div>-->
+                                <!--<div class="col-md-3 a-prop">-->
+                                    <!--<button class="btn-blue">Перейти к оценке</button>-->
+                                    <!--<button class="btn-gray">Пример отчета</button>-->
+                                    <!--<br>-->
+                                    <!--<span>Тип организации:</span> Любой <br>-->
+                                    <!--<span>Отрасль:</span> Любая <br>-->
+                                    <!--<span>Авторство:</span> Juran-->
+                                <!--</div>-->
+                            <!--</div>-->
 
-                        </div>
-                    </div>
-                </div>
-            </div>
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
             <div class="row">
                 <div class="col-md-12">
                     <h4>Оцениваемые области</h4>

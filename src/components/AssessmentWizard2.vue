@@ -141,7 +141,7 @@
                 }
             },
             submit() {
-                this.currentAssessment.status = 'new';
+                this.currentAssessment.status = 'Активная';
                 if (this.currentAssessment.id){
                     this.$store.dispatch(CHANGE_ASSESSMENT, this.currentAssessment)
                         .then(() =>
@@ -182,16 +182,24 @@
         },
         mounted() {
             this.industries = [
-                { id: '1', name: 'Norm' },
-                { id: '2', name: 'Ne norm' }
+                { id: '1', name: 'Любая' },
+                { id: '2', name: 'Добыча полезных ископаемых' },
+                { id: '3', name: 'Обрабатывающие производства' },
+                { id: '4', name: 'Обеспечение электрической энергией, газом и паром; кондиционирование воздуха' },
+                { id: '5', name: 'Строительство' },
+                { id: '6', name: 'Деятельность финансовая и страховая' },
+                { id: '7', name: 'Образование' },
+                { id: '8', name: 'Государственное управление и обеспечение военной безопасности; социальное обеспечение' },
+                { id: '9', name: 'Предоставление прочих видов услуг' }
             ];
             this.companyTypes = [
-                { id: '1', name: 'Computer Science' },
-                { id: '2', name: 'Physics' }
+                { id: '1', name: 'Комерческая' },
+                { id: '2', name: 'Некомерческая' },
+                { id: '3', name: 'Любая' }
             ];
             this.strategies = [
                 {id: "1", name: "да/нет/не знаю"},
-                {id: "2", name: "да/нет/не знаю2"}
+                {id: "2", name: "согласен/не согласен"}
             ];
         }
     }

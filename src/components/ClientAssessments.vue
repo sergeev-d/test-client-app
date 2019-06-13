@@ -8,6 +8,7 @@
                     :headers="headers"
                     :items="assessments"
                     class="elevation-1"
+                    rows-per-page-text="строк на страницу"
             >
                 <template v-slot:items="props">
                     <td>{{ props.item.name }}</td>

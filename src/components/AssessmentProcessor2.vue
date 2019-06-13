@@ -12,15 +12,15 @@
                 </div>
             </div>
             <v-layout v-if="step === 0">
-                <v-btn color="primary" flat @click="next()">Next</v-btn>
+                <v-btn color="primary" flat @click="next()">Далее</v-btn>
             </v-layout>
             <v-layout v-else-if="step > 0 & step < getSteps()">
-                <v-btn color="primary" flat @click="prev()">Prev</v-btn>
-                <v-btn color="primary" flat @click="next()">Next</v-btn>
+                <v-btn color="primary" flat @click="prev()">Назад</v-btn>
+                <v-btn color="primary" flat @click="next()">Далее</v-btn>
             </v-layout>
             <v-layout v-else>
-                <v-btn color="primary" flat @click="prev()">Prev</v-btn>
-                <v-btn color="primary" @click="finish()">Finish</v-btn>
+                <v-btn color="primary" flat @click="prev()">Назад</v-btn>
+                <v-btn color="primary" @click="finish()">Закончить</v-btn>
             </v-layout>
         </div>
     </v-app>
