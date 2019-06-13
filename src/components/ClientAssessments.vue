@@ -13,10 +13,13 @@
                 <template v-slot:items="props">
                     <td>{{ props.item.name }}</td>
                     <td class="text-xs-left">{{ props.item.description }}</td>
-                    <td class="text-xs-left">{{ props.item.companyTypeId }}</td>
-                    <td class="text-xs-left">{{ props.item.industryId }}</td>
-                    <td class="text-xs-left">{{ props.item.createdDate }}</td>
-                    <td class="justify-center layout px-0">
+                    <!--<td class="text-xs-left">{{ props.item.companyTypeId }}</td>-->
+                    <td class="text-xs-left">{{ "Некомерческая" }}</td>
+                    <!--<td class="text-xs-left">{{ props.item.industryId }}</td>-->
+                    <td class="text-xs-left">{{ "Любая" }}</td>
+                    <!--<td class="text-xs-left">{{ props.item.createdDate }}</td>-->
+                    <td class="text-xs">{{ "10.06.2019" }}</td>
+                    <td class="justify-center layout px-2">
                         <v-icon
                                 small
                                 class="mr-2"
