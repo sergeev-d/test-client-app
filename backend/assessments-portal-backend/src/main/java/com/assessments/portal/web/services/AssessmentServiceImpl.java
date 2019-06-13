@@ -316,9 +316,7 @@ public class AssessmentServiceImpl implements AssessmentService {
         assessmentId2.setStatus("Активная");
         assessmentId2.setQuestionBlocks(testQuestionBlocks);
         assessmentId2.setGlobalRecommendations(Arrays.asList(level11, level21));
-
-
-
+        
         userAssessments.put(secondId, assessmentId2);
         userAssessments.put(thirdId, assessmentId3);
 
@@ -348,6 +346,7 @@ public class AssessmentServiceImpl implements AssessmentService {
         assessment.setUserId(userId);
         assessment.setId(id);
         userAssessments.putIfAbsent(id, assessment);
+        allAssessments.put(id, assessment);
 
         return id;
     }
