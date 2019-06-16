@@ -73,17 +73,13 @@
 <script>
     import { mapGetters } from "vuex"
     import {
-        FETCH_USER_ASSESSMENTS_RESULT,
-        DOWNLOAD_FILE
+        FETCH_USER_ASSESSMENTS_RESULT
     } from "../store/actions.type"
     import Chart from 'chart.js';
-    import ResultWithRecommendation from "@/components/ResultWithRecommendation"
 
     export default {
         name: "ClientAssessmentResult",
-        components: {
-            ResultWithRecommendation
-        },
+
         data () {
             return {
                 dialog: false,
@@ -160,47 +156,7 @@
 
                 this.dialog = true;
             },
-            downloadFile(link){
-                this.$store.dispatch(DOWNLOAD_FILE, link)
-                    .then((response) => {
-                        this.forceFileDownload(response, link)
-                    })
-                    .catch()
-
-            },
-            forceFileDownload(response, fileName){
-                const url = window.URL.createObjectURL(new Blob([response]));
-                const link = document.createElement('a');
-                link.href = url;
-                link.setAttribute('download', fileName) ;//or any other extension
-                document.body.appendChild(link);
-                link.click()
-
-                // let blob = new Blob([response.blob()], {type: response.headers['content-type']}),
-                //     filename = (response.headers['Content-Disposition'] || '').split('filename=')[1];
-                // result = document.createElement('a');
-                // result.href = window.URL.createObjectURL(blob);
-                // result.download = filename;
-                // result.click();
-
-                // var blob = new Blob([response]);
-                // var blobURL = window.URL.createObjectURL(blob);
-                // var tempLink = document.createElement('a');
-                // tempLink.style.display = 'none';
-                // tempLink.href = blobURL;
-                // tempLink.setAttribute('download', fileName);
-                //
-                // if (typeof tempLink.download === 'undefined') {
-                //     tempLink.setAttribute('target', '_blank');
-                // }
-                //
-                // document.body.appendChild(tempLink);
-                // tempLink.click();
-                // document.body.removeChild(tempLink);
-                // window.URL.revokeObjectURL(blobURL);
-            },
             downloadImg() {
-                debugger
                 let canvas=document.getElementById("marksChart");
                 let download=document.getElementById("download");
                 let image = canvas.toDataURL("image/jpg");
