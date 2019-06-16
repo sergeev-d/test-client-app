@@ -1,9 +1,9 @@
 package com.assessments.portal.web.domain.assessment;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 public class Assessment {
@@ -25,6 +25,8 @@ public class Assessment {
     private Long userId;
     @JsonProperty("strategy")
     private Integer strategy;
+    @JsonProperty("create_date")
+    private Date createDate;
     @JsonProperty("questionBlocks")
     private List<QuestionBlock> questionBlocks = Collections.emptyList();
     @JsonProperty("global_recommendations")
@@ -40,6 +42,10 @@ public class Assessment {
         this.id = id;
     }
 
+    public Assessment withId(Long id) {
+        this.id = id;
+        return this;
+    }
 
     @JsonProperty("name")
     public String getName() {
@@ -51,6 +57,10 @@ public class Assessment {
         this.name = name;
     }
 
+    public Assessment withName(String name) {
+        this.name = name;
+        return this;
+    }
 
     @JsonProperty("description")
     public String getDescription() {
@@ -60,6 +70,11 @@ public class Assessment {
     @JsonProperty("description")
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Assessment withDescription(String description) {
+        this.description = description;
+        return this;
     }
 
     @JsonProperty("status")
@@ -179,6 +194,21 @@ public class Assessment {
 
     public Assessment withGlobalRecommendations(List<GlobalRecommendation> globalRecommendations) {
         this.globalRecommendations = globalRecommendations;
+        return this;
+    }
+
+    @JsonProperty("create_date")
+    public Date getCreateDate() {
+        return createDate;
+    }
+
+    @JsonProperty("create_date")
+    public void setCreateDate(Date createDate) {
+        this.createDate = createDate;
+    }
+
+    public Assessment withCreateDate(Date createDate) {
+        this.createDate = createDate;
         return this;
     }
 }

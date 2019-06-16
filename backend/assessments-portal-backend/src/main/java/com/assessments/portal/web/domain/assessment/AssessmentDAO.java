@@ -1,12 +1,14 @@
 package com.assessments.portal.web.domain.assessment;
 
+import com.assessments.portal.web.domain.AbstractBaseEntity;
+
 import javax.persistence.*;
 import java.util.Date;
 import java.util.Objects;
 
 @Entity
 @Table(name = "assessment")
-public class AssessmentDAO {
+public class AssessmentDAO extends AbstractBaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -42,12 +44,11 @@ public class AssessmentDAO {
 
     @Lob
     @Column(name = "context")
-    private Object context;
+    private String context;
 
-    public static AssessmentDAO create(Long id, String name, String description, String status, String comment, Integer companyTypeId,
-                                       Integer industryId, Long userId, Date createdDate, Date updatedDate) {
+    public static AssessmentDAO create(String name, String description, String status, String comment, Integer companyTypeId,
+                                       Integer industryId, Long userId, Date createdDate, Date updatedDate, String context) {
         AssessmentDAO assessmentDAO = new AssessmentDAO();
-        assessmentDAO.id = id;
         assessmentDAO.name = name;
         assessmentDAO.description = description;
         assessmentDAO.status = status;
@@ -57,6 +58,7 @@ public class AssessmentDAO {
         assessmentDAO.userId = userId;
         assessmentDAO.createdDate = createdDate;
         assessmentDAO.updatedDate = updatedDate;
+        assessmentDAO.context = context;
 
         return assessmentDAO;
     }
@@ -101,8 +103,52 @@ public class AssessmentDAO {
         return updatedDate;
     }
 
-    public Object getContext() {
+    public String getContext() {
         return context;
+    }
+
+    public void changeStatus(String status){
+        this.status = status;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
+
+    public void setCompanyTypeId(Integer companyTypeId) {
+        this.companyTypeId = companyTypeId;
+    }
+
+    public void setIndustryId(Integer industryId) {
+        this.industryId = industryId;
+    }
+
+    public void setCreatedDate(Date createdDate) {
+        this.createdDate = createdDate;
+    }
+
+    public void setUpdatedDate(Date updatedDate) {
+        this.updatedDate = updatedDate;
+    }
+
+    public void setContext(String context) {
+        this.context = context;
     }
 
     @Override

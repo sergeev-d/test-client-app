@@ -53,12 +53,15 @@
                         >
                             Закрыть
                         </v-btn>
-                        <v-btn
+                        <a id="download" download="result.png">
+                            <v-btn
                                 color="primary"
                                 flat
+                                @click="downloadImg()"
                         >
                             Сохранить
-                        </v-btn>
+                            </v-btn>
+                        </a>
                     </v-card-actions>
                 </v-card>
             </v-dialog>
@@ -132,10 +135,27 @@
                     ]
                 };
 
+                let chartOptions = {
+                    scale: {
+                        ticks: {
+                            beginAtZero: true,
+                            min: 0,
+                            max: 30,
+                            stepSize: 5
+                        },
+                        pointLabels: {
+                            fontSize: 18
+                        }
+                    },
+                    legend: {
+                        position: 'left'
+                    }
+                };
 
                 let radarChart = new Chart(marksCanvas, {
                     type: 'radar',
-                    data: marksData
+                    data: marksData,
+                    options: chartOptions
                 });
 
                 this.dialog = true;
@@ -178,6 +198,13 @@
                 // tempLink.click();
                 // document.body.removeChild(tempLink);
                 // window.URL.revokeObjectURL(blobURL);
+            },
+            downloadImg() {
+                debugger
+                let canvas=document.getElementById("marksChart");
+                let download=document.getElementById("download");
+                let image = canvas.toDataURL("image/jpg");
+                download.setAttribute("href", image);
             }
         },
         mounted() {

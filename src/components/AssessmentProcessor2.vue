@@ -84,6 +84,7 @@
                 }
 
                 let assessmentResult = {
+                    "assessmentId" : this.currentAssessment.id,
                     "assessmentName": this.currentAssessment.name,
                     "blocks" : labels,
                     "resultBlockData": resultBlockData,

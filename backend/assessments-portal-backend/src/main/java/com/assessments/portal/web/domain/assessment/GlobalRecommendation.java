@@ -45,7 +45,7 @@ public class GlobalRecommendation {
         return description;
     }
 
-    @JsonProperty("maxValue")
+    @JsonProperty("description")
     public void setDescription(String description) {
         this.description = description;
     }

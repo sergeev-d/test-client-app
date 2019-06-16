@@ -2,11 +2,12 @@ package com.assessments.portal.web.controllers;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-public class MainController {
-    @GetMapping(value = { "/"})
-    public String entry() {
+public class IndexController {
+    @RequestMapping("/")
+    public String index() {
         return "index";
     }
 }

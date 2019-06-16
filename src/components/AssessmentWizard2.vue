@@ -1,4 +1,4 @@
-<template>
+<template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
     <v-app class="col-md-9 sidebar">
     <v-content>
         <v-container>
@@ -21,6 +21,7 @@
                                   :items="companyTypes"
                                   single-line
                                   required
+
                         ></v-select>
                         <v-select label="Отрасль"
                                   v-model="currentAssessment.industryId"
@@ -48,14 +49,30 @@
                                       required
                             ></v-select>
                         </div>
-                        <div v-for="(qb, index) in currentAssessment.questionBlocks" :value=qb.block :key="index">
-                            <v-text-field label="Название блока" v-model="qb.block.name" required></v-text-field>
-                            <question-block :questions="qb.block.questions"></question-block>
-                            <v-btn flat color="error" @click="deleteBlock(index)">Удалить блок</v-btn>
-                        </div>
-                        <div class="wrapper">
-                            <v-btn large @click="addBlock()">Добавить блок</v-btn>
-                        </div>
+                        <v-expansion-panel>
+                            <v-expansion-panel-content
+                                    v-for="(qb, index) in currentAssessment.questionBlocks"
+                                    :value=qb.block
+                                    :key="index"
+                            >
+                                <template v-slot:header>
+                                    <v-text-field
+                                    label="Название блока"
+                                    v-model="qb.block.name"
+                                    required
+                                    style="font-weight: bold; border: none"
+                                    >
+                                    </v-text-field>
+                                </template>
+                                <div>
+                                    <question-block :questions="qb.block.questions"></question-block>
+                                    <v-btn flat color="error" @click="deleteBlock(index)">Удалить блок</v-btn>
+                                </div>
+                            </v-expansion-panel-content>
+                            <div class="wrapper">
+                                <v-btn large @click="addBlock()">Добавить блок</v-btn>
+                            </div>
+                        </v-expansion-panel>
 
                         <v-btn flat @click.native="step = 1">Назад</v-btn>
                         <v-btn color="primary" @click.native="step = 3">Продолжить</v-btn>
@@ -63,7 +80,7 @@
 
                     <v-stepper-content step="3">
                         <div>
-                            <label type="text"><span>Редактор оценки и рекомендаций</span></label>
+                            <label type="text" style="font-weight: bold"><span>Редактор оценки и рекомендаций</span></label>
                         </div>
                         <div>
                             <label type="text"><span>Информация про баллы</span></label>
@@ -86,15 +103,17 @@
                                 </tr>
                             </table>
                         </div>
+                        <!--<div>-->
+                            <!--<div v-for="(qb, index) in currentAssessment.questionBlocks" :value=qb.block :key="index">-->
+                                <!--<label type="text">{{qb.block.name}}</label>-->
+                                <!--< block-result :recommendations="checkRecommendation(qb.block.recommendations)"></block-result>-->
+                            <!--</div>-->
+                        <!--</div>-->
+
+                        <h4 type="text">{{"Глобальная рекомендация"}}</h4>
+                        <block-result v-if="currentAssessment.global_recommendations.length > 0" :recommendations="currentAssessment.global_recommendations"></block-result>
                         <div>
-                            <div v-for="(qb, index) in currentAssessment.questionBlocks" :value=qb.block :key="index">
-                                <label type="text">{{qb.block.name}}</label>
-                                <block-result :recommendations="checkRecommendation(qb.block.recommendations)"></block-result>
-                            </div>
-                        </div>
-                        <div>
-                            <h4 type="text">{{"Глобальная рекомендация"}}</h4>
-                            <block-result :recommendations="currentAssessment.global_recommendations"></block-result>
+                            <v-btn @click="addRecommendation()">Добавить диапазон</v-btn>
                         </div>
 
                         <v-btn flat @click.native="step = 2">Назад</v-btn>
@@ -178,24 +197,28 @@
             },
             calcMaxValue(){
                 return this.maxBlockValue * this.currentAssessment.questionBlocks.length
-            }
+            },
+            addRecommendation(){
+                let nextId = this.currentAssessment.global_recommendations.length + 1;
+                this.currentAssessment.global_recommendations.push({minValue:'', maxValue:'',description:''})
+            },
         },
         mounted() {
             this.industries = [
-                { id: '1', name: 'Любая' },
-                { id: '2', name: 'Добыча полезных ископаемых' },
-                { id: '3', name: 'Обрабатывающие производства' },
-                { id: '4', name: 'Обеспечение электрической энергией, газом и паром; кондиционирование воздуха' },
-                { id: '5', name: 'Строительство' },
-                { id: '6', name: 'Деятельность финансовая и страховая' },
-                { id: '7', name: 'Образование' },
-                { id: '8', name: 'Государственное управление и обеспечение военной безопасности; социальное обеспечение' },
-                { id: '9', name: 'Предоставление прочих видов услуг' }
+                { id: 1, name: 'Любая' },
+                { id: 2, name: 'Добыча полезных ископаемых' },
+                { id: 3, name: 'Обрабатывающие производства' },
+                { id: 4, name: 'Обеспечение электрической энергией, газом и паром; кондиционирование воздуха' },
+                { id: 5, name: 'Строительство' },
+                { id: 6, name: 'Деятельность финансовая и страховая' },
+                { id: 7, name: 'Образование' },
+                { id: 8, name: 'Государственное управление и обеспечение военной безопасности; социальное обеспечение' },
+                { id: 9, name: 'Предоставление прочих видов услуг' }
             ];
             this.companyTypes = [
-                { id: '1', name: 'Комерческая' },
-                { id: '2', name: 'Некомерческая' },
-                { id: '3', name: 'Любая' }
+                { id: 1, name: 'Коммерческая' },
+                { id: 2, name: 'Некоммерческая' },
+                { id: 3, name: 'Любая' }
             ];
             this.strategies = [
                 {id: "1", name: "да/нет/не знаю"},
